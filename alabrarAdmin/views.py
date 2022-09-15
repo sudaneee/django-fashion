@@ -4,6 +4,7 @@ from django.http import HttpResponse
 from PIL import Image
 import datetime
 from djmoney.money import Money
+import pytz
 from .models import (
     Customer,
     KaftanMeasurement,
@@ -21,7 +22,7 @@ from .models import (
 from django.contrib import messages
 # Create your views here.
 
-def adminHome(request):
+def dashboard(request):
     return render(request, 'alabrarAdmin/dashboard.html')
 
 def addCustormer(request):
@@ -453,3 +454,35 @@ def createJob(request):
 
  
     return render(request, 'alabrarAdmin/create_job.html', context)
+
+
+def viewJobs(request):
+    jobs = Job.objects.all()
+    status = []
+    utc=pytz.UTC
+    
+
+    for job in jobs:
+
+        if job.collection_date <= utc.localize(datetime.datetime.now()):
+            status.append('completed')
+        else:
+            status.append('pending')
+    yanxu = utc.localize(datetime.datetime.now())
+    context = {
+        'jobs': jobs,
+        'yanxu': yanxu
+    }
+    return render(request, 'alabrarAdmin/jobs.html', context)
+
+def viewJobDetails(request, pk):
+
+    job = Job.objects.get(id=pk)
+    job_items = JobItem.objects.filter(job=job).all()
+
+    context = {
+        'job': job,
+        'job_items': job_items,
+    }
+
+    return render(request, 'alabrarAdmin/job_details.html', context)

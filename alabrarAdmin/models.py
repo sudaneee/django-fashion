@@ -4,6 +4,7 @@ from djmoney.models.fields import MoneyField
 from PIL import Image, ImageOps
 from io import BytesIO
 from django.core.files import File
+import PIL.Image
 
 
 class Customer(models.Model):
@@ -135,6 +136,18 @@ class JobItem(models.Model):
 
     def __str__(self):
         return str(self.job)
+
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+        img = PIL.Image.open(self.material)
+        width, height = img.size
+        target_width = 600
+        h_coefficient = width/600
+        target_height = height/h_coefficient
+        img = img.resize((int(target_width), int(target_height)), PIL.Image.ANTIALIAS)
+        img.save(self.material.path, quality=100)
+        img.close()
+        self.material.close()
 
 
 

@@ -1,0 +1,87 @@
+{% extends 'alabrarAdmin/base.html' %}
+{% load static %}
+{% block content%}
+
+    {% include 'alabrarAdmin/partials/_navbar.html' %}
+    <div class="container-fluid page-body-wrapper">
+        {% include 'alabrarAdmin/partials/_sidebar.html' %}
+        <div class="main-panel">        
+            <div class="content-wrapper">
+                <div class="row">
+                    <div class="col-lg-12 grid-margin stretch-card">
+                        <div class="card">
+                          <div class="card-body">
+                            <h4 class="card-title">Job Details</h4>
+                            <p class="card-description">
+                              View Job Details
+                            </p>
+                            <div class="table-responsive">
+                              <table class="table">
+                                <thead>
+                                  <tr>
+                                    <th>Customer Name</th>
+                                    <td>{{job.customer.name}}</td>
+                                    <th>Customer ID</th>
+                                    <td>{{job.customer.customer_id}}</td>
+                                  </tr>
+                                  <tr>
+                                    <th>Recieved on: </th>
+                                    <td>{{job.recieved|date:'Y-m-d'}}</td>
+                                    <th>Collected on</th>
+                                    <td>{{job.collection_date|date:"Y-m-d"}}</td>
+                                  </tr>
+                                </thead>
+                              </table>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                </div>
+
+                    <div class="col-lg-12 grid-margin stretch-card">
+                        <div class="card">
+                          <div class="card-body">
+                            <h4 class="card-title">Job Items</h4>
+                            <p class="card-description">
+                              Job items
+                            </p>
+                            <div class="table-responsive">
+                              <table class="table">
+                                <thead>
+                                  <tr>
+                                    <th>S/N</th>
+                                    <th>Design</th>
+                                    <th>Amount</th>
+                                    <th>Material</th>
+
+                                   
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                {% for jobi in job_items %} 
+                                  <tr>
+                                    <td>{{forloop.counter}}</td>
+                                    <td>{{jobi.design_type.type_name}}</td>
+                                    <td>{{jobi.design_type.amount}}</td>
+                                    <td class="py-1">
+                                        <img src="{{jobi.material.url}}" alt="image"/>
+                                    </td>
+                                    
+                                    
+
+                                  </tr>
+                                {% endfor %}   
+                                </tbody>
+                              </table>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% include 'alabrarAdmin/partials/_footer.html' %}
+
+{% endblock content%}

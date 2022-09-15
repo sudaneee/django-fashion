@@ -1,0 +1,61 @@
+{% extends 'alabrarAdmin/base.html' %}
+{% load static %}
+{% load tz %}
+{% block content%}
+
+    {% include 'alabrarAdmin/partials/_navbar.html' %}
+    <div class="container-fluid page-body-wrapper">
+        {% include 'alabrarAdmin/partials/_sidebar.html' %}
+        <div class="main-panel">        
+            <div class="content-wrapper">
+                <div class="row">
+                    <div class="col-lg-12 grid-margin stretch-card">
+                        <div class="card">
+                          <div class="card-body">
+                            <h4 class="card-title">List of Jobs</h4>
+                            <p class="card-description">
+                              View Job Details
+                            </p>
+                            <div class="table-responsive">
+                              <table class="table">
+                                <thead>
+                                  <tr>
+                                    <th>S/N</th>
+                                    <th>Name</th>
+                                    <th>Amount</th>
+                                    <th>Status</th>
+                                    <th>Details</th>
+                                   
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                {% for job in jobs %} 
+                                  <tr>
+                                    <td>{{forloop.counter}}</td>
+                                    <td>{{job.customer}}</td>
+                                    <td>{{job.total}}</td>
+                                    {% if job.collection_date <= yanxu %}
+                                        <td><label class="badge badge-success">Completed</label></td>
+                                    {% else %}
+                                        <td><label class="badge badge-danger">Pending</label></td>
+                                    {% endif %}
+                                    <td><label class="badge badge-success"><a class="nav-link" href="{% url 'view-job-details' job.id %}"><i class="mdi mdi-eye"></i></a></label></td>
+                                    
+
+                                  </tr>
+                                {% endfor %} 
+     
+                                </tbody>
+                              </table>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% include 'alabrarAdmin/partials/_footer.html' %}
+
+{% endblock content%}
