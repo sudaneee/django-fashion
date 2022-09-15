@@ -155,6 +155,10 @@ class JobItem(models.Model):
 
 class Staff(models.Model):
     name = models.CharField(max_length=200, null=True)
+    staff_number = models.CharField(max_length=200, unique=True, null=True)
+    phone_number = models.CharField(max_length=200, null=True)
+    address = models.CharField(max_length=500, null=True)
+    email = models.CharField(max_length=200, null=True)
 
     def __str__(self):
         return self.name

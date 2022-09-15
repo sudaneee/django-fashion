@@ -486,3 +486,65 @@ def viewJobDetails(request, pk):
     }
 
     return render(request, 'alabrarAdmin/job_details.html', context)
+
+def createStaff(request):
+    if request.method == 'POST' and 'create_staff' in request.POST:
+        name = request.POST['name']
+        staff_id = request.POST['staff_id']
+        phone_number = request.POST['phone_number']
+        email = request.POST['email']
+        contact_address = request.POST['contact_address']
+        print(name)
+
+        Staff.objects.create(
+            name = name,
+            staff_number = staff_id,
+            phone_number = phone_number,
+            address = contact_address,
+            email = email
+        )
+        messages.info(request, 'Staff Created successfully')
+        return redirect('create-staff')
+        
+    return render(request, 'alabrarAdmin/create_staff.html')
+
+def staffList(request):
+    staff_list = Staff.objects.all()
+    context = {
+        'staff_list': staff_list,
+    }
+
+
+
+    return render(request, 'alabrarAdmin/staff_list.html', context)
+
+
+def staffDetails(request, pk):
+    staff = Staff.objects.get(id=pk)
+
+    context = {
+        'staff': staff,
+    }
+
+    if request.method == 'POST' and 'update_staff' in request.POST:
+        name = request.POST['name']
+        staff_id = request.POST['staff_id']
+        phone_number = request.POST['phone_number']
+        email = request.POST['email']
+        contact_address = request.POST['contact_address']
+
+        staff.name = name
+        staff.phone_number = phone_number
+        staff.staff_number = staff_id
+        staff.email = email
+        staff.address = contact_address
+        staff.save()
+
+        messages.info(request, 'Staff Updated successfully')
+        return redirect('staff-details', staff.id)
+
+    return render(request, 'alabrarAdmin/staff_details.html', context)
+
+def deleteStaff(request, pk):
+    Staff.objects.get(id=pk).delete()
+    return redirect('staff-list')

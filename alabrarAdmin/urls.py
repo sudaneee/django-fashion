@@ -13,4 +13,8 @@ urlpatterns = [
     path('create-job/', views.createJob, name='create-job'),
     path('view-jobs/', views.viewJobs, name='view-jobs'),
     path('view-job-details/<pk>/', views.viewJobDetails, name='view-job-details'),
+    path('create-staff/', views.createStaff, name='create-staff'),
+    path('staff-list/', views.staffList, name='staff-list'),
+    path('staff-details/<pk>/', views.staffDetails, name='staff-details'),
+    path('delete-staff/<pk>/', views.deleteStaff, name='delete-staff'),
 ]
