@@ -1,0 +1,81 @@
+{% extends 'alabrarAdmin/base.html' %}
+{% load static %}
+{% block content%}
+
+    {% include 'alabrarAdmin/partials/_navbar.html' %}
+    <div class="container-fluid page-body-wrapper">
+        {% include 'alabrarAdmin/partials/_sidebar.html' %}
+        <div class="main-panel">        
+            <div class="content-wrapper">
+                <div class="row">
+                    <div class="col-md-12 grid-margin stretch-card">
+                        <div class="card">
+                          <div class="card-body">
+                            <h4 class="card-title">Accept Jobs</h4>
+                            <p class="card-description">
+                              Customer General Information
+                            </p>
+                            <form method="POST" enctype="multipart/form-data">
+                                {% csrf_token %}
+                                <div class="form-group row">
+                                <div class="col-md-12">
+                                    <label>Customer ID</label>
+                                    <div id="the-basics">
+                                    <input class="typeahead" name="customer_id" type="text" placeholder="Enter Customer's ID">
+                                    </div>
+                                </div>
+
+                                <div id="jobForm" class="col-md-12 mt-2 mb-2" style="display: none">
+                                  <div class="row mb-2">
+                                    <div class="col-md-6">
+                                        <label>Design</label>
+                                        <div id="the-basics">
+                                          <select class="form-control" id="exampleSelectGender" name="design">
+                                            <option>Kaftan ------> N6,500</option>
+                                            <option>Trouser ------> N7,500</option>
+                                            <option>Shirt ------> N8,500</option>
+                                            <option>Suit ------> N9,500</option>
+                                          </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                      <label>Material</label>
+                                      <div id="the-basics">
+                                      <input class="typeahead" name="customer_id" type="file" placeholder="Upload Material">
+                                      </div>
+                                  </div>
+
+                                  </div>
+                       
+                                  <button name="remove" onclick="this.parentNode.parentNode.removeChild(this.parentNode)" type="button" class="btn btn-primary mb-2">Remove</button>
+                                  
+                                 
+                                </div>
+                                <span id="jobForms"></span>
+                                
+
+
+                                </div>
+                                
+                                <button name="add" onclick="moreFields()" type="button" class="btn btn-primary mb-2">Add More</button>
+                                <button name="add_customer" type="submit" class="btn btn-primary mb-2">Submit</button>
+                                {% if messages %}
+                                {% for msg in messages %}
+                                  <div class="alert alert-info alert-dismissable">
+                                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                                    {{msg.message}}
+                                  </div>
+                                {% endfor %}
+                              {% endif %}
+                            </form>
+                          </div>
+                        </div>
+                      </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% include 'alabrarAdmin/partials/_footer.html' %}
+
+{% endblock content%}

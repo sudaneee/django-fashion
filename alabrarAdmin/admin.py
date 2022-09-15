@@ -1,0 +1,28 @@
+from django.contrib import admin
+from .models import (
+    Customer,
+    KaftanMeasurement,
+    TrouserMeasurement,
+    SuitMeasurement,
+    ShirtMeasurement,
+    DesignType,
+    Job,
+    JobItem,
+    Staff,
+    StaffWage,
+    Consumables,
+    ItemExpenditure,
+)
+
+admin.site.register(Customer),
+admin.site.register(KaftanMeasurement),
+admin.site.register(TrouserMeasurement),
+admin.site.register(SuitMeasurement),
+admin.site.register(ShirtMeasurement),
+admin.site.register(DesignType),
+admin.site.register(Job),
+admin.site.register(JobItem),
+admin.site.register(Staff),
+admin.site.register(StaffWage),
+admin.site.register(Consumables),
+admin.site.register(ItemExpenditure),

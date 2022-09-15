@@ -1,0 +1,372 @@
+{% extends 'alabrarAdmin/base.html' %}
+{% load static %}
+{% block content%}
+
+    {% include 'alabrarAdmin/partials/_navbar.html' %}
+    <div class="container-fluid page-body-wrapper">
+        {% include 'alabrarAdmin/partials/_sidebar.html' %}
+        <div class="main-panel">        
+            <div class="content-wrapper">
+                <div class="row">
+                  {% if m_type == 'Kaftan' %}
+                  {% comment %} =========================Kaftan Measurement================ {% endcomment %}
+                    <div class="col-md-12 grid-margin stretch-card">
+                        <div class="card">
+                          <div class="card-body">
+                            <h4 class="card-title">Add Customer Measurement</h4>
+                            <p class="card-description mt-4">
+                              Kaftan Measurement
+                            </p>
+                            <form method="POST">
+                                {% csrf_token %}
+                                <div class="form-group row">
+                                <div class="col-md-6">
+                                    <label>Customer ID</label>
+                                    <div id="the-basics">
+                                    <input class="typeahead" name="k_customer_id" type="text" value='{{measurement.customer.customer_id}}'>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label>Tag</label>
+                                    <div id="the-basics">
+                                    <input class="typeahead" name="k_tag" type="text" value='{{measurement.tag}}'>
+                                    </div>
+                                </div>
+
+                
+                                <div class="col-md-2">
+                                    <label>Shoulder</label>
+                                    <div id="the-basics">
+                                    <input class="typeahead" name="k_shoulder" type="text" value='{{measurement.shoulder}}'>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <label>Hand</label>
+                                    <div id="the-basics">
+                                      <div class="row">
+                                      <div class="col-md-6">
+                                        <input class="typeahead" name="h_long" type="text" value='{{measurement.long_hand}}'>
+                                      </div>
+                                      <div class="col-md-6">
+                                        <input class="typeahead" name="h_short" type="text" value='{{measurement.short_hand}}'>
+                                      </div>
+                                      </div>
+                                    
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <label>Length</label>
+                                    <div id="the-basics">
+                                      <div class="row">
+                                      <div class="col-md-4">
+                                        <input class="typeahead" name="l_short" type="text" value='{{measurement.short_length}}'>
+                                      </div>
+                                      <div class="col-md-4">
+                                        <input class="typeahead" name="jampa" type="text" value='{{measurement.jampa_length}}'>
+                                      </div>
+                                      <div class="col-md-4">
+                                        <input class="typeahead" name="full" type="text" value='{{measurement.full_length}}'>
+                                      </div>
+                                      </div>
+                                    
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <label>Neck</label>
+                                    <div id="the-basics">
+                                    <input class="typeahead" name="k_neck" type="text" value='{{measurement.neck}}'>
+                                    </div>
+                                </div>
+                                <div class="col-md-1">
+                                    <label>Burst</label>
+                                    <div id="the-basics">
+                                    <input class="typeahead" name="k_burst" type="text" value='{{measurement.burst}}'>
+                                    </div>
+                                </div>                        
+    
+                                </div>
+
+                                
+                                <button name="kaftan_measurement" type="submit" class="btn btn-primary mb-2">Update</button>
+                                {% if messages %}
+                                {% for msg in messages %}
+                                  <div class="alert alert-info alert-dismissable">
+                                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                                    {{msg.message}}
+                                  </div>
+                                {% endfor %}
+                              {% endif %}
+                            </form>
+                          </div>
+                        </div>
+                    </div>
+                    {% comment %} ==========================End of Kaftan Measurement================== {% endcomment %}
+                  
+                  {% elif m_type == 'Trouser' %}
+                    {% comment %}=============== Trouser Measurement===================== {% endcomment %}
+
+                    <div class="col-md-12 grid-margin stretch-card">
+                        <div class="card">
+                          <div class="card-body">
+                            
+                            <p class="card-description mt-4">
+                              Trouser Measurement
+                            </p>
+                            <form method="POST">
+                                {% csrf_token %}
+                                <div class="form-group row">
+                                <div class="col-md-6">
+                                    <label>Customer ID</label>
+                                    <div id="the-basics">
+                                    <input class="typeahead" name="t_customer_id" type="text" value='{{measurement.customer.customer_id}}'>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label>Tag</label>
+                                    <div id="the-basics">
+                                    <input class="typeahead" name="t_tag" type="text" value='{{measurement.tag}}'>
+                                    </div>
+                                </div>
+
+                
+                                <div class="col-md-2">
+                                    <label>Length</label>
+                                    <div id="the-basics">
+                                    <input class="typeahead" name="t_length" type="text" value='{{measurement.length}}'>
+                                    </div>
+                                </div>
+
+
+                                <div class="col-md-2">
+                                    <label>Waist</label>
+                                    <div id="the-basics">
+                                    <input class="typeahead" name="t_waist" type="text" value='{{measurement.waist}}'>
+                                    </div>
+                                </div>
+                        
+                                <div class="col-md-1">
+                                    <label>Hip</label>
+                                    <div id="the-basics">
+                                    <input class="typeahead" name="hip" type="text" value='{{measurement.hip}}'>
+                                    </div>
+                                </div>                        
+                                <div class="col-md-2">
+                                    <label>Thigh</label>
+                                    <div id="the-basics">
+                                    <input class="typeahead" name="thigh" type="text" value='{{measurement.thigh}}'>
+                                    </div>
+                                </div>                        
+                                <div class="col-md-1">
+                                    <label>Knee</label>
+                                    <div id="the-basics">
+                                    <input class="typeahead" name="knee" type="text" value='{{measurement.knee}}'>
+                                    </div>
+                                </div>                        
+                                <div class="col-md-2">
+                                    <label>Calf</label>
+                                    <div id="the-basics">
+                                    <input class="typeahead" name="calf" type="text" value='{{measurement.calf}}'>
+                                    </div>
+                                </div> 
+                                <div class="col-md-2">
+                                  <label>Ankle</label>
+                                  <div id="the-basics">
+                                  <input class="typeahead" name="ankle" type="text" value='{{measurement.ankle}}'>
+                                  </div>
+                                </div>                       
+    
+                                </div>
+
+                                
+                                <button name="trouser_measurement" type="submit" class="btn btn-primary mb-2">Update</button>
+                                {% if messages %}
+                                {% for msg in messages %}
+                                  <div class="alert alert-info alert-dismissable">
+                                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                                    {{msg.message}}
+                                  </div>
+                                {% endfor %}
+                              {% endif %}
+                            </form>
+                          </div>
+                        </div>
+                    </div>
+                    
+                    {% comment %}=================== End of  Trouser Measurement=============== {% endcomment %}
+                    
+                    
+                  
+                  {% elif m_type == 'Shirt' %}
+                    {% comment %}=============== Shirt Measurement===================== {% endcomment %}
+
+                    <div class="col-md-12 grid-margin stretch-card">
+                        <div class="card">
+                          <div class="card-body">
+                            
+                            <p class="card-description mt-4">
+                              Shirt Measurement
+                            </p>
+                            <form method="POST">
+                                {% csrf_token %}
+                                <div class="form-group row">
+                                <div class="col-md-6">
+                                    <label>Customer ID</label>
+                                    <div id="the-basics">
+                                    <input class="typeahead" name="sh_customer_id" type="text" value='{{measurement.customer.customer_id}}'>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label>Tag</label>
+                                    <div id="the-basics">
+                                    <input class="typeahead" name="sh_tag" type="text" value='{{measurement.tag}}'>
+                                    </div>
+                                </div>
+
+                
+                                <div class="col-md-3">
+                                    <label>Shoulder</label>
+                                    <div id="the-basics">
+                                    <input class="typeahead" name="sh_shoulder" type="text" value='{{measurement.shoulder}}'>
+                                    </div>
+                                </div>
+
+
+                                <div class="col-md-2">
+                                    <label>Burst</label>
+                                    <div id="the-basics">
+                                    <input class="typeahead" name="sh_burst" type="text" value='{{measurement.burst}}'>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <label>Length</label>
+                                    <div id="the-basics">
+                                    <input class="typeahead" name="sh_length" type="text" value='{{measurement.length}}'>
+                                    </div>
+                                </div>                        
+                                <div class="col-md-2">
+                                    <label>Sleeve</label>
+                                    <div id="the-basics">
+                                    <input class="typeahead" name="sh_sleeve" type="text" value='{{measurement.sleeve}}'>
+                                    </div>
+                                </div>                        
+                                <div class="col-md-3">
+                                    <label>Neck</label>
+                                    <div id="the-basics">
+                                    <input class="typeahead" name="sh_neck" type="text" value='{{measurement.neck}}'>
+                                    </div>
+                                </div>                        
+    
+                                </div>
+
+                                
+                                <button name="shirt_measurement" type="submit" class="btn btn-primary mb-2">Update</button>
+                                {% if messages %}
+                                {% for msg in messages %}
+                                  <div class="alert alert-info alert-dismissable">
+                                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                                    {{msg.message}}
+                                  </div>
+                                {% endfor %}
+                              {% endif %}
+                            </form>
+                          </div>
+                        </div>
+                    </div>
+
+                    {% comment %}=================== End of  Shirt Measurement=============== {% endcomment %}
+                    
+
+                  {% else %}
+                    {% comment %}=============== Suit Measurement===================== {% endcomment %}
+
+                    <div class="col-md-12 grid-margin stretch-card">
+                        <div class="card">
+                          <div class="card-body">
+                            
+                            <p class="card-description mt-4">
+                              Suit Measurement
+                            </p>
+                            <form method="POST">
+                                {% csrf_token %}
+                                <div class="form-group row">
+                                <div class="col-md-6">
+                                    <label>Customer ID</label>
+                                    <div id="the-basics">
+                                    <input class="typeahead" name="s_customer_id" type="text" value='{{measurement.customer.customer_id}}'>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label>Tag</label>
+                                    <div id="the-basics">
+                                    <input class="typeahead" name="s_tag" type="text" value='{{measurement.tag}}'>
+                                    </div>
+                                </div>
+
+                
+                                <div class="col-md-2">
+                                    <label>Shoulder</label>
+                                    <div id="the-basics">
+                                    <input class="typeahead" name="s_shoulder" type="text" value='{{measurement.shoulder}}'>
+                                    </div>
+                                </div>
+
+
+                                <div class="col-md-2">
+                                    <label>Chest</label>
+                                    <div id="the-basics">
+                                    <input class="typeahead" name="chest" type="text" value='{{measurement.chest}}'>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <label>Length</label>
+                                    <div id="the-basics">
+                                    <input class="typeahead" name="s_length" type="text" value='{{measurement.length}}'>
+                                    </div>
+                                </div>                        
+                                <div class="col-md-2">
+                                    <label>Sleeve</label>
+                                    <div id="the-basics">
+                                    <input class="typeahead" name="s_sleeve" type="text" value='{{measurement.sleeve}}'>
+                                    </div>
+                                </div>                        
+                                <div class="col-md-2">
+                                    <label>Neck</label>
+                                    <div id="the-basics">
+                                    <input class="typeahead" name="s_neck" type="text" value='{{measurement.neck}}'>
+                                    </div>
+                                </div>                        
+                                <div class="col-md-2">
+                                    <label>Waist</label>
+                                    <div id="the-basics">
+                                    <input class="typeahead" name="s_waist" type="text" value='{{measurement.waist}}'>
+                                    </div>
+                                </div>                        
+    
+                                </div>
+
+                                
+                                <button name="suit_measurement" type="submit" class="btn btn-primary mb-2">Update</button>
+                                {% if messages %}
+                                {% for msg in messages %}
+                                  <div class="alert alert-info alert-dismissable">
+                                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                                    {{msg.message}}
+                                  </div>
+                                {% endfor %}
+                              {% endif %}
+                            </form>
+                          </div>
+                        </div>
+                    </div>
+
+                    {% comment %}=================== End of  Suit Measurement=============== {% endcomment %}
+                
+                  {% endif %}
+                  </div>
+            </div>
+        </div>
+    </div>
+
+    {% include 'alabrarAdmin/partials/_footer.html' %}
+
+{% endblock content%}

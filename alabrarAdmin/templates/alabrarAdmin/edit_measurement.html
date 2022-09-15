@@ -1,0 +1,52 @@
+{% extends 'alabrarAdmin/base.html' %}
+{% load static %}
+{% block content%}
+
+    {% include 'alabrarAdmin/partials/_navbar.html' %}
+    <div class="container-fluid page-body-wrapper">
+        {% include 'alabrarAdmin/partials/_sidebar.html' %}
+        <div class="main-panel">        
+            <div class="content-wrapper">
+                <div class="row">
+                    <div class="col-md-12 grid-margin stretch-card">
+                        <div class="card">
+                          <div class="card-body">
+                            <h4 class="card-title">Edit Customer Measurements</h4>
+                            
+                            <form method="POST">
+                                {% csrf_token %}
+                                <div class="form-group row">
+                                <div class="col-md-12">
+                                    <label>Customer ID</label>
+                                    <div id="the-basics">
+                                    <input class="typeahead" name="customer_id" type="text" placeholder="Enter Customer's ID">
+                                    </div>
+                                </div>                        
+                                <div class="col-md-12">
+                                    <label class="mt-2">Measurement Type</label>
+                                    <div id="the-basics">
+                                      <select class="form-control" id="exampleSelectGender" name="measurement_type">
+                                        <option>Kaftan</option>
+                                        <option>Trouser</option>
+                                        <option>Shirt</option>
+                                        <option>Suit</option>
+                                      </select>
+                                    </div>
+                                </div>                        
+    
+                                </div>
+
+                                <button name="search_measurement" type="submit" class="btn btn-primary mb-2">Search</button>
+
+                            </form>
+                          </div>
+                        </div>
+                      </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% include 'alabrarAdmin/partials/_footer.html' %}
+
+{% endblock content%}
