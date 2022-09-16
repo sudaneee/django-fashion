@@ -135,7 +135,7 @@ class JobItem(models.Model):
     material = models.ImageField(upload_to='materials', null=True)
 
     def __str__(self):
-        return str(self.job)
+        return str(self.design_type)
 
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
@@ -195,6 +195,7 @@ class ItemExpenditure(models.Model):
     item = models.ForeignKey(Consumables, on_delete=models.CASCADE)
     quantity = models.CharField(max_length=200, null=True)
     incurred_on = models.DateTimeField(auto_now_add=True)
+    recieved_by = models.ForeignKey(Staff, on_delete=models.CASCADE, null=True)
 
     def __str__(self):
         return str(self.item)

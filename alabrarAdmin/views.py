@@ -548,3 +548,127 @@ def staffDetails(request, pk):
 def deleteStaff(request, pk):
     Staff.objects.get(id=pk).delete()
     return redirect('staff-list')
+
+
+
+def payStaff(request):
+    job_items = JobItem.objects.all()
+
+    context = {
+        'job_items': job_items
+    }
+
+    if request.method == 'POST' and 'pay_staff' in request.POST:
+        staff_id = request.POST['staff_id']
+        amount_paid = request.POST['amount_paid']
+        job = request.POST['job']
+
+        StaffWage.objects.create(
+            staff = Staff.objects.get(staff_number=staff_id),
+            amount_paid = Money(int(amount_paid), 'NGN'),
+            job = JobItem.objects.get(id=int(job))
+
+        )
+
+        messages.info(request, 'Staff Payment successfully')
+        return redirect('pay-staff')
+    return render(request, 'alabrarAdmin/pay_staff.html', context)
+    
+
+def addConsumable(request):
+
+    if request.method == 'POST' and 'add_item' in request.POST:
+        item = request.POST['item']
+        price = request.POST['price']
+
+        Consumables.objects.create(
+            item = item,
+            price = Money(int(price), 'NGN')
+        )
+
+        messages.info(request, 'Item Added successfully')
+        return redirect('items-list')
+
+    return render(request, 'alabrarAdmin/add_consumable.html')
+
+
+def itemsList(request):
+    items_list = Consumables.objects.all()
+    context = {
+        'items': items_list,
+    }
+
+    return render(request, 'alabrarAdmin/items_list.html', context)
+
+
+def itemDetails(request, pk):
+    item = Consumables.objects.get(id=pk)
+    context = {
+        'item': item,
+    }
+
+    if request.method == 'POST' and 'update_item' in request.POST:
+        item_name = request.POST['item']
+        price = request.POST['price']
+
+        if 'NGN' in price:
+            price_currency = price[0:3]
+            actual_currency = price[3:-3]
+            final_price = int(actual_currency.replace(',', ''))
+            
+        
+            item.item = item_name
+            item.price = Money(final_price, price_currency)
+            item.save()
+        
+        else:
+            item.item = item_name
+            item.price = Money(int(price), 'NGN')
+            item.save()
+
+
+        
+        messages.info(request, 'Item Updated successfully')
+        return redirect('items-list')
+
+
+
+    return render(request, 'alabrarAdmin/item_details.html', context)
+
+
+def deleteItem(request, pk):
+    Consumables.objects.get(id=pk).delete()
+    return render(request, 'alabrarAdmin/items_list.html')
+
+
+def createExpenditure(request):
+    items = Consumables.objects.all()
+    context = {
+        'items': items
+    }
+
+    if request.method == 'POST' and 'add_expenditure' in request.POST:
+        item = request.POST['item']
+        quantity = request.POST['quantity']
+        staff_id = request.POST['staff_id']
+
+        ItemExpenditure.objects.create(
+            item = Consumables.objects.get(id=item),
+            quantity = quantity,
+            recieved_by = Staff.objects.get(staff_number=staff_id)
+        )
+
+        messages.info(request, 'Expenditure Recorded successfully')
+        return redirect('expenses-list')
+
+    return render(request, 'alabrarAdmin/create_expenditure.html', context)
+
+
+def expensesList(request):
+    items_expenses = ItemExpenditure.objects.all()
+    context = {
+        'items_expenses': items_expenses,
+    }
+  
+    return render(request, 'alabrarAdmin/expenses_list.html', context)
+

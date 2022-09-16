@@ -1,0 +1,65 @@
+{% extends 'alabrarAdmin/base.html' %}
+{% load static %}
+{% block content%}
+
+    {% include 'alabrarAdmin/partials/_navbar.html' %}
+    <div class="container-fluid page-body-wrapper">
+        {% include 'alabrarAdmin/partials/_sidebar.html' %}
+        <div class="main-panel">        
+            <div class="content-wrapper">
+                <div class="row">
+                    <div class="col-md-12 grid-margin stretch-card">
+                        <div class="card">
+                          <div class="card-body">
+                            <h4 class="card-title">Add Staff</h4>
+                            <p class="card-description">
+                              Staff General Information
+                            </p>
+                            <form method="POST">
+                                {% csrf_token %}
+                                <div class="form-group row">
+                                <div class="col-md-6">
+                                    <label>Staff ID</label>
+                                    <div id="the-basics">
+                                    <input class="typeahead" name="staff_id" type="text" placeholder="Enter staff's ID">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label>Amount Paid</label>
+                                    <div id="the-basics">
+                                    <input class="typeahead" name="amount_paid" type="text" placeholder="Enter Amount">
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <label>Executed Job</label>
+                                    <div id="the-basics">
+                                      <select class="form-control" id="exampleSelectGender" name="job">
+                                        {% for job in job_items %}
+                                          <option value="{{job.id}}">{{job.job}} ----------> {{job.design_type}} ------> {{job.design_type.amount}}</option>
+                                        {% endfor %}
+                                      </select>
+                                    </div>
+                                </div>                     
+    
+                                </div>
+                                <button name="pay_staff" type="submit" class="btn btn-primary mb-2">Submit</button>
+                                {% if messages %}
+                                {% for msg in messages %}
+                                  <div class="alert alert-info alert-dismissable">
+                                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                                    {{msg.message}}
+                                  </div>
+                                {% endfor %}
+                              {% endif %}
+                            </form>
+                          </div>
+                        </div>
+                      </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% include 'alabrarAdmin/partials/_footer.html' %}
+
+{% endblock content%}

@@ -17,4 +17,13 @@ urlpatterns = [
     path('staff-list/', views.staffList, name='staff-list'),
     path('staff-details/<pk>/', views.staffDetails, name='staff-details'),
     path('delete-staff/<pk>/', views.deleteStaff, name='delete-staff'),
+    path('pay-staff/', views.payStaff, name='pay-staff'),
+    path('add-consumable/', views.addConsumable, name='add-consumable'),
+    path('items-list/', views.itemsList, name='items-list'),
+    path('item-details/<pk>/', views.itemDetails, name='item-details'),
+    path('delete-item/<pk>/', views.deleteItem, name='delete-item'),
+    path('create-expenditure/', views.createExpenditure, name='create-expenditure'),
+    path('expenses-list/', views.expensesList, name='expenses-list'),
+    
+    
 ]
