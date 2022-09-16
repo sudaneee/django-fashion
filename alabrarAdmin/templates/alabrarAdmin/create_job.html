@@ -25,25 +25,24 @@
                                     </div>
                                 </div>
 
-                                <div id="jobForm" class="col-md-12 mt-2 mb-2" style="display: none">
+                                <div id="jobForm" class="col-md-12 mt-2 mb-2" style="display: hidden">
                                   <div class="row mb-2">
                                     <div class="col-md-6">
                                         <label>Design</label>
                                         <div id="the-basics">
                                           <select class="form-control" id="exampleSelectGender" name="design">
-                                            <option>Kaftan ------> N6,500</option>
-                                            <option>Trouser ------> N7,500</option>
-                                            <option>Shirt ------> N8,500</option>
-                                            <option>Suit ------> N9,500</option>
+                                            {% for i in design_type %}
+                                              <option value="{{i.id}}">{{i.type_name}} ------> {{i.amount}}</option>
+                                            {% endfor %}
                                           </select>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                       <label>Material</label>
                                       <div id="the-basics">
-                                      <input class="typeahead" name="customer_id" type="file" placeholder="Upload Material">
+                                      <input class="typeahead" name="material" type="file" placeholder="Upload Material">
                                       </div>
-                                  </div>
+                                    </div>
 
                                   </div>
                        
@@ -58,7 +57,7 @@
                                 </div>
                                 
                                 <button name="add" onclick="moreFields()" type="button" class="btn btn-primary mb-2">Add More</button>
-                                <button name="add_customer" type="submit" class="btn btn-primary mb-2">Submit</button>
+                                <button name="create_job" type="submit" class="btn btn-primary mb-2">Submit</button>
                                 {% if messages %}
                                 {% for msg in messages %}
                                   <div class="alert alert-info alert-dismissable">

@@ -1,6 +1,10 @@
 from django.db import models
 import datetime
 from djmoney.models.fields import MoneyField
+from PIL import Image, ImageOps
+from io import BytesIO
+from django.core.files import File
+
 
 class Customer(models.Model):
     name = models.CharField(max_length=200)
@@ -81,6 +85,9 @@ class DesignType(models.Model):
         max_digits=11,
     )
 
+    def __str__(self):
+        return self.type_name
+        
 class Job(models.Model):
     customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
     amount_charged = MoneyField(
@@ -107,6 +114,12 @@ class Job(models.Model):
         default_currency='NGN',
         max_digits=11,
     )
+    total = MoneyField(
+        decimal_places=2,
+        default=0,
+        default_currency='NGN',
+        max_digits=11,
+    )
 
     recieved = models.DateTimeField(auto_now_add=True)
     collection_date = models.DateTimeField()
@@ -116,12 +129,15 @@ class Job(models.Model):
 
 
 class JobItem(models.Model):
-    job = models.ForeignKey(Job, on_delete=models.CASCADE)
-    design_type = models.CharField(max_length=200, null=True)
+    job = models.ForeignKey(Job, on_delete=models.CASCADE, null=True)
+    design_type = models.ForeignKey(DesignType, on_delete=models.CASCADE)
     material = models.ImageField(upload_to='materials', null=True)
 
     def __str__(self):
         return str(self.job)
+
+
+
 
 
 class Staff(models.Model):

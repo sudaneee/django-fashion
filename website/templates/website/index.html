@@ -50,7 +50,7 @@
             	<div class="clearfix">
                 	
                 	<div class="pull-left logo-box">
-                    	<div class="logo"><a href="index-2.html"><img src="{% static 'website/images/logo.png' %}" alt="" title=""></a></div>
+                    	<div class="logo"><a href="index-2.html"><img src="{{logo.image.url}}" alt="" title="" style="height: 180px;"></a></div>
                     </div>
                     
                     <div class="pull-right upper-right">
@@ -222,7 +222,7 @@
             <div class="auto-container clearfix">
                 <!--Logo-->
                 <div class="logo pull-left">
-                    <a href="index-2.html" title=""><img src="{% static 'website/images/logo.png' %}" alt="" title=""></a>
+                    <a href="index-2.html" title=""><img src="{{small_logo.image.url}}" alt="" style="height: 100px;" title=""></a>
                 </div>
                 <!--Right Col-->
                 <div class="pull-right">
@@ -283,7 +283,7 @@
             <div class="close-btn"><span class="icon flaticon-multiply"></span></div>
             
             <nav class="menu-box">
-                <div class="nav-logo"><a href="index-2.html"><img src="{% static 'website/images/logo-2.png' %}" alt="" title=""></a></div>
+                <div class="nav-logo"><a href="index-2.html"><img src="{{small_logo.image.url}}" alt="" title=""></a></div>
                 <div class="menu-outer"><!--Here Menu Will Come Automatically Via Javascript / Same Menu as in Header--></div>
             </nav>
         </div><!-- End Mobile Menu -->
@@ -297,12 +297,26 @@
 		<div class="color-two"></div>
         <div class="main-slider-carousel owl-carousel owl-theme">
             
-            <div class="slide" style="background-image:url(images/main-slider/image-1.jpg)">
+
+            
+            <div class="slide" style="background-image:url({% static 'website/images/main-slider/image-1.jpg' %})">
                 <div class="auto-container">
                 	<div class="content clearfix">
 						<div class="title">In Wood We Trust</div>
-						<h2>We Design. We Build. <br> We Restore</h2>
-						<div class="text">Our highly skilled and experienced team specialises in all aspects of <br> antique furniture repair and restoration </div>
+						<h2>We Design. We Create. <br> We Restore</h2>
+						<div class="text">Our highly skilled and experienced team specialises in all aspects of <br> antique tailoring fashion design and restoration </div>
+                    	<div class="link-box">
+							<a href="about.html" class="theme-btn btn-style-one"><span class="txt">Order Now</span></a>
+						</div>
+                    </div>
+                </div>
+            </div>
+            <div class="slide" style="background-image:url({% static 'website/images/main-slider/image-1.jpg' %})">
+                <div class="auto-container">
+                	<div class="content clearfix">
+						<div class="title">In Wood We Trust</div>
+						<h2>We Design. We Create. <br> We Restore</h2>
+						<div class="text">Our highly skilled and experienced team specialises in all aspects of <br> antique tailoring fashion design and restoration </div>
                     	<div class="link-box">
 							<a href="about.html" class="theme-btn btn-style-one"><span class="txt">Order Now</span></a>
 						</div>
@@ -310,31 +324,7 @@
                 </div>
             </div>
             
-            <div class="slide" style="background-image:url(images/main-slider/image-1.jpg)">
-                <div class="auto-container">
-                	<div class="content clearfix">
-						<div class="title">In Wood We Trust</div>
-						<h2>We Design. We Build. <br> We Restore</h2>
-						<div class="text">Our highly skilled and experienced team specialises in all aspects of <br> antique furniture repair and restoration </div>
-                    	<div class="link-box">
-							<a href="about.html" class="theme-btn btn-style-one"><span class="txt">Order Now</span></a>
-						</div>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="slide" style="background-image:url(images/main-slider/image-1.jpg)">
-                <div class="auto-container">
-                	<div class="content clearfix">
-						<div class="title">In Wood We Trust</div>
-						<h2>We Design. We Build. <br> We Restore</h2>
-						<div class="text">Our highly skilled and experienced team specialises in all aspects of <br> antique furniture repair and restoration </div>
-                    	<div class="link-box">
-							<a href="about.html" class="theme-btn btn-style-one"><span class="txt">Order Now</span></a>
-						</div>
-                    </div>
-                </div>
-            </div>
+
 			
         </div>
 		
@@ -1476,36 +1466,7 @@
 
 <!-- Color Palate / Color Switcher -->
 
-<div class="color-palate">
-    <div class="color-trigger">
-        <i class="fa fa-paint-brush"></i>
-    </div>
-    <div class="color-palate-head">
-        <h6>Choose Your Color</h6>
-    </div>
-    <div class="various-color clearfix">
-        <div class="colors-list">
-            <span class="palate default-color active" data-theme-file="{% static 'website/css/color-themes/default-theme.css' %}"></span>
-            <span class="palate green-color" data-theme-file="{% static 'website/css/color-themes/green-theme.css' %}"></span>
-            <span class="palate blue-color" data-theme-file="{% static 'website/css/color-themes/blue-theme.css' %}"></span>
-            <span class="palate orange-color" data-theme-file="{% static 'website/css/color-themes/orange-theme.css' %}"></span>
-            <span class="palate purple-color" data-theme-file="{% static 'website/css/color-themes/purple-theme.css' %}"></span>
-            <span class="palate teal-color" data-theme-file="{% static 'website/css/color-themes/teal-theme.css' %}"></span>
-            <span class="palate brown-color" data-theme-file="{% static 'website/css/color-themes/brown-theme.css' %}"></span>
-            <span class="palate redd-color" data-theme-file="{% static 'website/css/color-themes/redd-color.css' %}"></span>
-        </div>
-    </div>
-	
-	<ul class="box-version option-box"> <li class="box">Boxed</li> <li>Full width</li></ul>
-	<ul class="rtl-version option-box"> <li class="rtl">RTL Version</li> <li>LTR Version</li> </ul>
-	
-    <a href="#" class="purchase-btn">Purchase now $17</a>
-    
-    <div class="palate-foo">
-        <span>You will find much more options for colors and styling in admin panel. This color picker is used only for demonstation purposes.</span>
-    </div>
 
-</div>
 
 <!--Search Popup-->
 <div id="search-popup" class="search-popup">

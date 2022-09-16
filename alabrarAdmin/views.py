@@ -1,6 +1,9 @@
 from multiprocessing import context
 from django.shortcuts import redirect, render
 from django.http import HttpResponse
+from PIL import Image
+import datetime
+from djmoney.money import Money
 from .models import (
     Customer,
     KaftanMeasurement,
@@ -358,4 +361,95 @@ def measurementDetails(request, pk, m_type):
 
 
 def createJob(request):
-    return render(request, 'alabrarAdmin/create_job.html' )
+       
+    design_type = DesignType.objects.all()
+    context = {
+        'design_type':design_type,
+    }
+    if request.method == 'POST' and 'create_job' in request.POST:
+        
+        customer_id = request.POST['customer_id']
+        design_id = request.POST.getlist('design')
+        materials = request.FILES.getlist('material')
+
+  
+        amount_list = []
+        for i in design_id:
+            amount_per_item = DesignType.objects.get(id=i).amount
+            amount_list.append(amount_per_item)
+
+        total_amount = sum(amount_list)
+
+
+        for item, material in zip(design_id, materials):
+            JobItem.objects.create(
+                design_type = DesignType.objects.get(id=item),
+                material = material
+
+
+            )
+
+        contxt = {
+            'customer_id': customer_id,
+            'total_amount': total_amount,
+            'design_id': design_id,
+        }
+
+
+
+
+
+        return render(request, 'alabrarAdmin/confirm_job.html', contxt )
+
+    if request.method == 'POST' and 'confirm_job' in request.POST:
+        customer_id = request.POST['customer_id']
+        amount_charged = request.POST['amount_charged']
+        amount_paid = request.POST['amount_paid']
+        discount = request.POST['discount']
+        collection_date = request.POST['collection_date']
+        design_ids = request.POST.getlist('design_ids')
+
+        
+        convert_discount = Money(int(discount), 'NGN')
+        convert_amount_paid = Money(int(amount_paid), 'NGN')
+
+        total_amount_charges = []    
+        for i in design_ids:
+            total_amount_charges.append(DesignType.objects.get(id=i).amount)
+
+        amount_charged = sum(total_amount_charges)
+
+        total = amount_charged - convert_discount
+
+        balance = total - convert_amount_paid
+
+
+
+
+
+        c_month, c_day, c_year = collection_date.split('/')
+        c_d = datetime.date(int(c_year), int(c_month), int(c_day))
+
+        job_created = Job.objects.create(
+            customer = Customer.objects.get(customer_id=customer_id),
+            amount_charged = amount_charged,
+            discount = convert_discount,
+            amount_paid = convert_amount_paid,
+            total = total,
+            balance = balance,
+            collection_date = c_d,
+        )
+
+        for j in design_ids:
+            job_item = JobItem.objects.filter(design_type=j)
+            for i in job_item:
+                i.job = Job.objects.get(id=job_created.id)
+                i.save()
+        
+
+
+        messages.info(request, 'Job Created successfully')
+ 
+
+ 
+    return render(request, 'alabrarAdmin/create_job.html', context)

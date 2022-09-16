@@ -1,0 +1,91 @@
+{% extends 'alabrarAdmin/base.html' %}
+{% load static %}
+{% block content%}
+
+    {% include 'alabrarAdmin/partials/_navbar.html' %}
+    <div class="container-fluid page-body-wrapper">
+        {% include 'alabrarAdmin/partials/_sidebar.html' %}
+        <div class="main-panel">        
+            <div class="content-wrapper">
+                <div class="row">
+                    <div class="col-md-12 grid-margin stretch-card">
+                        <div class="card">
+                          <div class="card-body">
+                            <h4 class="card-title">Confirm Job</h4>
+                            <p class="card-description">
+                              Customer General Information
+                            </p>
+                            <form method="POST" enctype="multipart/form-data">
+                                {% csrf_token %}
+                                <div class="form-group row">
+                                <div class="col-md-12">
+                                    <label>Customer ID</label>
+                                    <div id="the-basics">
+                                    <input class="typeahead" name="customer_id" type="text" value="{{customer_id}}">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label>Amount Charged</label>
+                                    <div id="the-basics">
+                                    <input class="typeahead" name="amount_charged" type="text" value="{{total_amount}}">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label>Amount_paid</label>
+                                    <div id="the-basics">
+                                    <input class="typeahead" name="amount_paid" type="text" placeholder="Enter Amount Paid">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label>Discount</label>
+                                    <div id="the-basics">
+                                    <input class="typeahead" name="discount" type="text" placeholder="Enter Discount">
+                                    </div>
+                                </div>
+                                <div class="col-md-6" style="display: none;">
+                                    <label>Discount</label>
+                                    <div id="the-basics">
+                                        {% for i in design_id%}
+                                            <input class="typeahead" name="design_ids" type="text" value="{{i}}">
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label>Collection Date</label>
+                                    <div id="the-basics">
+                                        <div id="datepicker-popup" class="input-group date datepicker navbar-date-picker">
+                                            <span class="input-group-addon input-group-prepend border-right">
+                                              <span class="icon-calendar input-group-text calendar-icon"></span>
+                                            </span>
+                                            <input name="collection_date" type="text" class="form-control">
+                                          </div>
+                                    </div>
+                                </div>
+
+                                
+
+
+                                </div>
+                                
+                                
+                                <button name="confirm_job" type="submit" class="btn btn-primary mb-2">Submit</button>
+                                {% if messages %}
+                                {% for msg in messages %}
+                                  <div class="alert alert-info alert-dismissable">
+                                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                                    {{msg.message}}
+                                  </div>
+                                {% endfor %}
+                              {% endif %}
+                            </form>
+                          </div>
+                        </div>
+                      </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% include 'alabrarAdmin/partials/_footer.html' %}
+
+{% endblock content%}
