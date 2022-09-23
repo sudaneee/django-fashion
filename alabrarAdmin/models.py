@@ -163,6 +163,19 @@ class Staff(models.Model):
     def __str__(self):
         return self.name
 
+class WorkType(models.Model):
+    name = models.CharField(max_length=200, null=True)
+    amount = MoneyField(
+        decimal_places=2,
+        default=0,
+        default_currency='NGN',
+        max_digits=11,
+    )
+
+    def __str__(self):
+        return self.name
+
+
 class StaffWage(models.Model):
     staff = models.ForeignKey(Staff, on_delete=models.CASCADE)
     amount_paid = MoneyField(
@@ -171,8 +184,8 @@ class StaffWage(models.Model):
         default_currency='NGN',
         max_digits=11,
     )
-
-    job = models.ForeignKey(JobItem, on_delete=models.CASCADE)
+    qauntity = models.CharField(max_length=200, null=True)
+    work_schedule = models.ForeignKey(WorkType, on_delete=models.CASCADE, null=True)
     paid_on = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
@@ -193,6 +206,12 @@ class Consumables(models.Model):
 
 class ItemExpenditure(models.Model):
     item = models.ForeignKey(Consumables, on_delete=models.CASCADE)
+    amount = MoneyField(
+        decimal_places=2,
+        default=0,
+        default_currency='NGN',
+        max_digits=11,
+    )
     quantity = models.CharField(max_length=200, null=True)
     incurred_on = models.DateTimeField(auto_now_add=True)
     recieved_by = models.ForeignKey(Staff, on_delete=models.CASCADE, null=True)

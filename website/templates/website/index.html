@@ -1,294 +1,13 @@
-{% load static %}
-<!DOCTYPE html>
-<html>
-
-<!-- sawmall/  26 Nov 2019 04:18:33 GMT -->
-<head>
-<meta charset="utf-8">
-<title>Sawmall HTML-5 Template | Homepage</title>
-<!-- Stylesheets -->
-<link href="{% static 'website/css/bootstrap.css' %}" rel="stylesheet">
-<link href="{% static 'website/css/style.css' %}" rel="stylesheet">
-<link href="{% static 'website/css/responsive.css' %}" rel="stylesheet">
-
-<!-- Color Switcher Mockup -->
-<link href="{% static 'website/css/color-switcher-design.css' %}" rel="stylesheet">
-
-<!--Color Themes -->
-<link id="theme-color-file" href="{% static 'website/css/color-themes/default-theme.css' %}" rel="stylesheet">
-
-<link rel="shortcut icon" href="{% static 'website/images/favicon.png' %}" type="image/x-icon">
-<link rel="icon" href="{% static 'website/images/favicon.png' %}" type="image/x-icon">
-
-<!-- Responsive -->
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
-
-<!--[if lt IE 9]><script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js' %}"></script><![endif]-->
-<!--[if lt IE 9]><script src="{% static 'website/js/respond.js' %}"></script><![endif]-->
-</head>
-
-<body class="hidden-bar-wrapper">
-
+{% extends 'website/base.html' %}
+{%load static%}
+{%block content%}
 <div class="page-wrapper">
  	
     <!-- Preloader -->
     <div class="preloader"></div>
  	
  	<!-- Main Header-->
-    <header class="main-header header-style-one">
-    	
-		<div class="header-top-one">
-			<div class="auto-container">
-				<div class="text">We Build Structures & Bring to Your Life</div>
-			</div>
-		</div>
-		
-		<!--Header-Upper-->
-        <div class="header-upper">
-        	<div class="auto-container">
-            	<div class="clearfix">
-                	
-                	<div class="pull-left logo-box">
-                    	<div class="logo"><a href="index-2.html"><img src="{{logo.image.url}}" alt="" title="" style="height: 180px;"></a></div>
-                    </div>
-                    
-                    <div class="pull-right upper-right">
-                    	<div class="info-outer clearfix">
-							<!--Info Box-->
-							<div class="upper-column info-box">
-								<div class="icon-box"><span class="flaticon-24-hours-2"></span></div>
-								<ul>
-									<li><span>WORKING HOURS</span> <br> Mon - Sat: 09.00am to 18.00pm</li>
-								</ul>
-							</div>
-							
-							<!--Info Box-->
-							<div class="upper-column info-box">
-								<div class="icon-box"><span class="flaticon-call"></span></div>
-								<ul>
-									<li><span> + (123) 456 7890  </span> <br> supportyou@sawmall.com</li>
-								</ul>
-							</div>
-							
-							<!--Info Box-->
-							<div class="upper-column info-box">
-								<div class="icon-box"><span class="flaticon-placeholder-4"></span></div>
-								<ul>
-									<li><span>WORKING HOURS</span> <br> Mon - Sat: 09.00am to 18.00pm</li>
-								</ul>
-							</div>
-                        </div>
-						
-						<!--Header Lower-->
-						<div class="header-lower clearfix">
-							
-							<div class="nav-outer clearfix">
-								<!--Mobile Navigation Toggler-->
-								<div class="mobile-nav-toggler"><span class="icon flaticon-menu"></span></div>
-								<!-- Main Menu -->
-								<nav class="main-menu navbar-expand-md">
-									<div class="navbar-header">
-										<!-- Toggle Button -->    	
-										<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-											<span class="icon-bar"></span>
-											<span class="icon-bar"></span>
-											<span class="icon-bar"></span>
-										</button>
-									</div>
-									
-									<div class="navbar-collapse collapse clearfix" id="navbarSupportedContent">
-										<ul class="navigation clearfix">
-											<li class="current dropdown"><a href="#">Home</a>
-												<ul>
-													<li><a href="index-2.html">Home Page 01</a></li>
-													<li><a href="index-3.html">Home Page 02</a></li>
-													<li><a href="index-4.html">Home Page 03</a></li>
-													<li class="dropdown"><a href="#">Header Styles</a>
-														<ul>
-															<li><a href="index-2.html">Header Style 01</a></li>
-															<li><a href="index-3.html">Header Style 02</a></li>
-															<li><a href="index-4.html">Header Style 03</a></li>
-														</ul>
-													</li>
-												</ul>
-											</li>
-											<li class="dropdown"><a href="#">About</a>
-												<ul>
-													<li><a href="about.html">About Us</a></li>
-													<li><a href="faq.html">Faq</a></li>
-													<li><a href="price.html">Price</a></li>
-													<li><a href="team.html">Team</a></li>
-													<li><a href="testimonial.html">Testimonial</a></li>
-													<li><a href="comming-soon.html">Comming Soon</a></li>
-												</ul>
-											</li>
-											<li class="dropdown"><a href="#">Services</a>
-												<ul>
-													<li><a href="services.html">Services</a></li>
-													<li><a href="services-detail.html">Services Detail</a></li>
-												</ul>
-											</li>
-											<li class="dropdown"><a href="#">Projects</a>
-												<ul>
-													<li><a href="projects.html">Projects</a></li>
-													<li><a href="projects-detail.html">Projects Detail</a></li>
-												</ul>
-											</li>
-											<li class="dropdown"><a href="#">Shop</a>
-												<ul>
-													<li><a href="shop.html">Our Products</a></li>
-													<li><a href="shop-single.html">Product Single</a></li>
-													<li><a href="shopping-cart.html">Shopping Cart</a></li>
-													<li><a href="checkout.html">Checkout</a></li>
-													<li><a href="account.html">Account</a></li>
-												</ul>
-											</li>
-											<li class="dropdown"><a href="#">Blog</a>
-												<ul>
-													<li><a href="blog.html">Our Blog</a></li>
-													<li><a href="blog-classic.html">Blog Classic</a></li>
-													<li><a href="blog-single.html">Blog Single</a></li>
-													<li><a href="not-found.html">Not Found</a></li>
-												</ul>
-											</li>
-											<li><a href="contact.html">Contact us</a></li>
-										</ul>
-									</div>
-								</nav>
-								
-								<!-- Main Menu End-->
-								<div class="outer-box clearfix">
-								
-									<!-- Cart Box -->
-									<div class="cart-box">
-										<div class="dropdown">
-											<button class="cart-box-btn dropdown-toggle" type="button" id="dropdownMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="flaticon-shopping-bag-1"></span><span class="total-cart">2</span></button>
-											<div class="dropdown-menu pull-right cart-panel" aria-labelledby="dropdownMenu3">
-
-												<div class="cart-product">
-													<div class="inner">
-														<div class="cross-icon"><span class="icon fa fa-remove"></span></div>
-														<div class="image"><img src="{% static 'website/images/resource/post-thumb-3.jpg' %}" alt="" /></div>
-														<h3><a href="shop-single.html">Flying Ninja</a></h3>
-														<div class="quantity-text">Quantity 1</div>
-														<div class="price">$99.00</div>
-													</div>
-												</div>
-												<div class="cart-product">
-													<div class="inner">
-														<div class="cross-icon"><span class="icon fa fa-remove"></span></div>
-														<div class="image"><img src="{% static 'website/images/resource/post-thumb-2.jpg' %}" alt="" /></div>
-														<h3><a href="shop-single.html">Patient Ninja</a></h3>
-														<div class="quantity-text">Quantity 1</div>
-														<div class="price">$99.00</div>
-													</div>
-												</div>
-												<div class="cart-total">Sub Total: <span>$198</span></div>
-												<ul class="btns-boxed">
-													<li><a href="shoping-cart.html">View Cart</a></li>
-													<li><a href="checkout.html">CheckOut</a></li>
-												</ul>
-
-											</div>
-										</div>
-									</div>
-									
-									<!-- Search Btn -->
-									<div class="search-box-btn"><span class="icon fa fa-search"></span></div>
-									
-									<!-- Quote Btn -->
-									<div class="btn-box">
-										<a href="contact.html" class="quote-btn theme-btn">Get A Quote</a>
-									</div>
-										
-								</div>
-								<div class="side-curve"></div>
-							</div>
-							
-						</div>
-						<!--End Header Lower-->
-						
-                    </div>
-                    
-                </div>
-				
-            </div>
-        </div>
-        <!--End Header Upper-->
-        
-		<!-- Sticky Header  -->
-        <div class="sticky-header">
-            <div class="auto-container clearfix">
-                <!--Logo-->
-                <div class="logo pull-left">
-                    <a href="index-2.html" title=""><img src="{{small_logo.image.url}}" alt="" style="height: 100px;" title=""></a>
-                </div>
-                <!--Right Col-->
-                <div class="pull-right">
-                    <!-- Main Menu -->
-                    <nav class="main-menu">
-                        <!--Keep This Empty / Menu will come through Javascript-->
-                    </nav><!-- Main Menu End-->
-					
-					<!-- Main Menu End-->
-					<div class="outer-box clearfix">
-					
-						<!-- Cart Box -->
-						<div class="cart-box">
-							<div class="dropdown">
-								<button class="cart-box-btn dropdown-toggle" type="button" id="dropdownMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="flaticon-shopping-bag-1"></span><span class="total-cart">2</span></button>
-								<div class="dropdown-menu pull-right cart-panel" aria-labelledby="dropdownMenu3">
-
-									<div class="cart-product">
-										<div class="inner">
-											<div class="cross-icon"><span class="icon fa fa-remove"></span></div>
-											<div class="image"><img src="https://via.placeholder.com/70x70" alt="" /></div>
-											<h3><a href="shop-single.html">Flying Ninja</a></h3>
-											<div class="quantity-text">Quantity 1</div>
-											<div class="price">$99.00</div>
-										</div>
-									</div>
-									<div class="cart-product">
-										<div class="inner">
-											<div class="cross-icon"><span class="icon fa fa-remove"></span></div>
-											<div class="image"><img src="https://via.placeholder.com/70x70" alt="" /></div>
-											<h3><a href="shop-single.html">Patient Ninja</a></h3>
-											<div class="quantity-text">Quantity 1</div>
-											<div class="price">$99.00</div>
-										</div>
-									</div>
-									<div class="cart-total">Sub Total: <span>$198</span></div>
-									<ul class="btns-boxed">
-										<li><a href="shoping-cart.html">View Cart</a></li>
-										<li><a href="checkout.html">CheckOut</a></li>
-									</ul>
-
-								</div>
-							</div>
-						</div>
-						
-						<!-- Search Btn -->
-						<div class="search-box-btn"><span class="icon fa fa-search"></span></div>
-							
-					</div>
-					
-                </div>
-            </div>
-        </div><!-- End Sticky Menu -->
-    
-		<!-- Mobile Menu  -->
-        <div class="mobile-menu">
-            <div class="menu-backdrop"></div>
-            <div class="close-btn"><span class="icon flaticon-multiply"></span></div>
-            
-            <nav class="menu-box">
-                <div class="nav-logo"><a href="index-2.html"><img src="{{small_logo.image.url}}" alt="" title=""></a></div>
-                <div class="menu-outer"><!--Here Menu Will Come Automatically Via Javascript / Same Menu as in Header--></div>
-            </nav>
-        </div><!-- End Mobile Menu -->
-	
-    </header>
+	{% include 'website/partials/header.html' %}
     <!-- End Main Header -->
 	
 	<!-- Main Slider -->
@@ -345,7 +64,7 @@
 						<!-- Upper Box -->
 						<div class="upper-box">
 							<div class="upper-inner">
-								<div class="number">25</div>
+								<div class="number">15</div>
 								<h3>Years of Experience</h3>
 								<div class="upper-title">in This Industry</div>
 							</div>
@@ -629,9 +348,9 @@
 										<div class="content">
 											<div class="icon flaticon-robot-arm"></div>
 											<div class="count-outer count-box">
-												<span class="count-text" data-speed="2500" data-stop="10">0</span>
+												<span class="count-text" data-speed="2500" data-stop="15">0</span>
 											</div>
-											<h4 class="counter-title">Years of Carpenting <br> Experience</h4>
+											<h4 class="counter-title">Years of Fashion Design <br> Experience</h4>
 										</div>
 									</div>
 								</div>
@@ -642,9 +361,9 @@
 										<div class="content">
 											<div class="icon flaticon-intellectual"></div>
 											<div class="count-outer count-box alternate">
-												<span class="count-text" data-speed="3000" data-stop="58">0</span>
+												<span class="count-text" data-speed="3000" data-stop="3">0</span>
 											</div>
-											<h4 class="counter-title">Local Branches in <br> City NY</h4>
+											<h4 class="counter-title">Local Branches in <br> City </h4>
 										</div>
 									</div>
 								</div>
@@ -668,9 +387,9 @@
 										<div class="content">
 											<div class="icon flaticon-gear"></div>
 											<div class="count-outer count-box">
-												<span class="count-text" data-speed="2500" data-stop="13">0</span>
+												<span class="count-text" data-speed="2500" data-stop="13">0</span>+
 											</div>
-											<h4 class="counter-title">Best team with <br> dedicat carpenter</h4>
+											<h4 class="counter-title">Best team with <br> dedicate fashion designers</h4>
 										</div>
 									</div>
 								</div>
@@ -703,45 +422,6 @@
 								</div>
 							</li>
 
-							<!--Block-->
-							<li class="accordion block active-block">
-								<div class="acc-btn active"><div class="icon-outer"><span class="icon icon-plus fa fa-plus"></span> <span class="icon icon-minus fa fa-minus"></span></div>What is benefit for handmade furniture?</div>
-								<div class="acc-content current">
-									<div class="content">
-										<div class="text">How all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth.</div>
-									</div>
-								</div>
-							</li>
-							
-							<!--Block-->
-							<li class="accordion block">
-								<div class="acc-btn"><div class="icon-outer"><span class="icon icon-plus fa fa-plus"></span> <span class="icon icon-minus fa fa-minus"></span></div>Is saal wood is best for door and fences?</div>
-								<div class="acc-content">
-									<div class="content">
-										<div class="text">How all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth.</div>
-									</div>
-								</div>
-							</li>
-							
-							<!--Block-->
-							<li class="accordion block">
-								<div class="acc-btn"><div class="icon-outer"><span class="icon icon-plus fa fa-plus"></span> <span class="icon icon-minus fa fa-minus"></span></div>Can we make outdoor furniture in hardwood?</div>
-								<div class="acc-content">
-									<div class="content">
-										<div class="text">How all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth.</div>
-									</div>
-								</div>
-							</li>
-							
-							<!--Block-->
-							<li class="accordion block">
-								<div class="acc-btn"><div class="icon-outer"><span class="icon icon-plus fa fa-plus"></span> <span class="icon icon-minus fa fa-minus"></span></div>From where I can purchase good furniture in teek wood?</div>
-								<div class="acc-content">
-									<div class="content">
-										<div class="text">How all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth.</div>
-									</div>
-								</div>
-							</li>
 							
 						</ul>
 						
@@ -1383,135 +1063,11 @@
 	<!-- End News Section -->
 	
 	<!-- Main Footer -->
-    <footer class="main-footer" style="background-image: url(images/background/map-pattern.png)">
-		<div class="footer-social-box">
-			<div class="auto-container">
-				<ul class="social-nav">
-					<li><a title="Facebook" href="#"><span class="fa fa-facebook-f"></span></a></li>
-					<li><a title="Twitter" href="#"><span class="fa fa-twitter"></span></a></li>
-					<li><a title="VK" href="#"><span class="fa fa-vk"></span></a></li>
-					<li><a title="Linkedin" href="#"><span class="fa fa-linkedin"></span></a></li>
-					<li><a title="Instagram" href="#"><span class="fa fa-instagram"></span></a></li>
-				</ul>
-			</div>
-		</div>
-    	<div class="auto-container">
-        	<!--Widgets Section-->
-            <div class="widgets-section">
-            	<div class="row clearfix">
-					
-					<!-- Footer Column -->
-					<div class="footer-column col-lg-4 col-md-6 col-sm-12">
-						<div class="footer-widget logo-widget">
-							<div class="logo">
-								<a href="index-2.html"><img src="{% static 'website/images/footer-logo.png' %}" alt="" /></a>
-							</div>
-							<div class="text">Our professionalism, good service and trust to the home repair maintenance business. We take immense pride in sending some of the most of professional seds handymen to yours that aren't workings every day.</div>
-						</div>
-					</div>
-					
-					<!-- Footer Column -->
-					<div class="footer-column col-lg-4 col-md-6 col-sm-12">
-						<div class="footer-widget links-widget">
-							<div class="footer-title">
-								<h4>Contact Us</h4>
-							</div>
-							<ul class="contact-link">
-								<li><span>Call:</span> +4(897)56412322</li>
-								<li><span>Write:</span> thissite@domaim.com</li>
-								<li><span>Find Us:</span> Usa 27th Brookiy Ny.</li>
-							</ul>
-						</div>
-					</div>
-					
-					<!-- Footer Column -->
-					<div class="footer-column col-lg-4 col-md-6 col-sm-12">
-						<div class="footer-widget newsletter-widget">
-							<div class="footer-title">
-								<h4>Our News letter</h4>
-							</div>
-							<div class="text">You can get latest update from us by Subscribing to our News Letter</div>
-							<div class="newsletter-form">
-								<form method="post" action="https://expert-themes.com/html/sawmall/contact.html">
-									<div class="form-group">
-										<input type="email" name="email" value="" placeholder="Your Email Address" required="">
-										<button type="submit" class="theme-btn submit-btn"><span class="txt">Subscribe</span></button>
-									</div>
-								</form>
-							</div>
-						</div>
-					</div>
-					
-				</div>
-			</div>
-		</div>
-		
-		<div class="footer-bottom">
-			<div class="auto-container">
-				<div class="clearfix">
-					<div class="pull-left">
-						<div class="copyright"><a href="templateshub.net">Templates Hub</a></div>
-					</div>
-					<div class="pull-right">
-						<div class="scroll-to-top scroll-to-target" data-target="html">Back To Top</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		
-	</footer>
+	{% include 'website/partials/footer.html' %}
 	
 </div>
 <!--End pagewrapper-->
 
 <!-- Color Palate / Color Switcher -->
 
-
-
-<!--Search Popup-->
-<div id="search-popup" class="search-popup">
-	<div class="close-search theme-btn"><span class="flaticon-multiply"></span></div>
-	<div class="popup-inner">
-		<div class="overlay-layer"></div>
-    	<div class="search-form">
-        	<form method="post" action="https://expert-themes.com/html/sawmall/index.html">
-            	<div class="form-group">
-                	<fieldset>
-                        <input type="search" class="form-control" name="search-input" value="" placeholder="Search Here" required >
-                        <input type="submit" value="Search Now!" class="theme-btn">
-                    </fieldset>
-                </div>
-            </form>
-            
-            <br>
-            <h3>Recent Search Keywords</h3>
-            <ul class="recent-searches">
-                <li><a href="#">Business</a></li>
-                <li><a href="#">Furniture</a></li>
-                <li><a href="#">Kitchen</a></li>
-                <li><a href="#">Bed</a></li>
-                <li><a href="#">Window</a></li>
-            </ul>
-        
-        </div>
-        
-    </div>
-</div>
-
-<script src="{% static 'website/js/jquery.js' %}"></script>
-<script src="{% static 'website/js/popper.min.js' %}"></script>
-<script src="{% static 'website/js/bootstrap.min.js' %}"></script>
-<script src="{% static 'website/js/jquery.mCustomScrollbar.concat.min.js' %}"></script>
-<script src="{% static 'website/js/jquery.fancybox.js' %}"></script>
-<script src="{% static 'website/js/appear.js' %}"></script>
-<script src="{% static 'website/js/isotope.js' %}"></script>
-<script src="{% static 'website/js/owl.js' %}"></script>
-<script src="{% static 'website/js/wow.js' %}"></script>
-<script src="{% static 'website/js/jquery-ui.js' %}"></script>
-<script src="{% static 'website/js/script.js' %}"></script>
-<script src="{% static 'website/js/color-settings.js' %}"></script>
-
-</body>
-
-<!-- sawmall/  26 Nov 2019 04:19:51 GMT -->
-</html>
+{% endblock content %}

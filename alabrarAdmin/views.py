@@ -5,6 +5,10 @@ from PIL import Image
 import datetime
 from djmoney.money import Money
 import pytz
+from django.contrib.auth.models import User
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
+
 from .models import (
     Customer,
     KaftanMeasurement,
@@ -21,10 +25,43 @@ from .models import (
 )
 from django.contrib import messages
 # Create your views here.
+def loginPage(request):
+    page = 'login'
 
+    if request.user.is_authenticated:
+        return redirect('admin-home')
+
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+
+        try:
+            user = User.objects.get(username=username)
+        except:
+            messages.error(request, 'User does not exist')
+
+        user = authenticate(request, username=username, password=password)
+        
+
+        if user is not None and user.is_staff:
+            login(request, user)
+            return redirect('admin-home')
+
+        else:
+            messages.error(request, 'Incorrect login credentails')
+    context = {'page': page}
+    return render(request,'alabrarAdmin/login.html', context)
+
+def logoutUser(request):
+    logout(request)
+    return redirect('login')
+
+@login_required(login_url='login')
 def dashboard(request):
     return render(request, 'alabrarAdmin/dashboard.html')
 
+
+@login_required(login_url='login')
 def addCustormer(request):
     if request.method == "POST":
         name = request.POST['name']
@@ -49,7 +86,7 @@ def addCustormer(request):
         return redirect('customer-list')
     return render(request, 'alabrarAdmin/add_customer.html')
 
-
+@login_required(login_url='login')
 def customerList(request):
     customer_list = Customer.objects.all()
     context = {
@@ -57,6 +94,7 @@ def customerList(request):
     }
     return render (request, 'alabrarAdmin/customer_list.html', context)
 
+@login_required(login_url='login')
 def customerDetails(request, pk):
     customer_detail = Customer.objects.get(id=pk)
     context = {
@@ -83,12 +121,13 @@ def customerDetails(request, pk):
 
     return render (request, 'alabrarAdmin/customer_details.html', context)
 
+@login_required(login_url='login')
 def deleteCustomer(request, pk):
     Customer.objects.get(id=pk).delete()
     return redirect('customer-list')
 
 
-
+@login_required(login_url='login')
 def addMeasurement(request):
 
     if request.method == 'POST' and 'kaftan_measurement' in request.POST:
@@ -198,7 +237,7 @@ def addMeasurement(request):
 
     return render(request, 'alabrarAdmin/add_measurement.html')
 
-
+@login_required(login_url='login')
 def editMeasurement(request):
 
     if request.method == 'POST' and 'search_measurement' in request.POST:
@@ -230,7 +269,7 @@ def editMeasurement(request):
 
     return render(request, 'alabrarAdmin/edit_measurement.html')
 
-
+@login_required(login_url='login')
 def measurementDetails(request, pk, m_type):
     try: 
         if m_type == 'Kaftan':
@@ -360,7 +399,7 @@ def measurementDetails(request, pk, m_type):
 
     return render(request, 'alabrarAdmin/edit_measurement_form.html', context)
 
-
+@login_required(login_url='login')
 def createJob(request):
        
     design_type = DesignType.objects.all()
@@ -455,7 +494,7 @@ def createJob(request):
  
     return render(request, 'alabrarAdmin/create_job.html', context)
 
-
+@login_required(login_url='login')
 def viewJobs(request):
     jobs = Job.objects.all()
     status = []
@@ -487,6 +526,7 @@ def viewJobDetails(request, pk):
 
     return render(request, 'alabrarAdmin/job_details.html', context)
 
+@login_required(login_url='login')
 def createStaff(request):
     if request.method == 'POST' and 'create_staff' in request.POST:
         name = request.POST['name']
@@ -508,6 +548,7 @@ def createStaff(request):
         
     return render(request, 'alabrarAdmin/create_staff.html')
 
+@login_required(login_url='login')
 def staffList(request):
     staff_list = Staff.objects.all()
     context = {
@@ -518,7 +559,7 @@ def staffList(request):
 
     return render(request, 'alabrarAdmin/staff_list.html', context)
 
-
+@login_required(login_url='login')
 def staffDetails(request, pk):
     staff = Staff.objects.get(id=pk)
 
@@ -545,12 +586,13 @@ def staffDetails(request, pk):
 
     return render(request, 'alabrarAdmin/staff_details.html', context)
 
+@login_required(login_url='login')
 def deleteStaff(request, pk):
     Staff.objects.get(id=pk).delete()
     return redirect('staff-list')
 
 
-
+@login_required(login_url='login')
 def payStaff(request):
     job_items = JobItem.objects.all()
 
@@ -575,6 +617,7 @@ def payStaff(request):
     return render(request, 'alabrarAdmin/pay_staff.html', context)
     
 
+@login_required(login_url='login')
 def addConsumable(request):
 
     if request.method == 'POST' and 'add_item' in request.POST:
@@ -591,7 +634,7 @@ def addConsumable(request):
 
     return render(request, 'alabrarAdmin/add_consumable.html')
 
-
+@login_required(login_url='login')
 def itemsList(request):
     items_list = Consumables.objects.all()
     context = {
@@ -600,7 +643,7 @@ def itemsList(request):
 
     return render(request, 'alabrarAdmin/items_list.html', context)
 
-
+@login_required(login_url='login')
 def itemDetails(request, pk):
     item = Consumables.objects.get(id=pk)
     context = {
@@ -635,12 +678,12 @@ def itemDetails(request, pk):
 
     return render(request, 'alabrarAdmin/item_details.html', context)
 
-
+@login_required(login_url='login')
 def deleteItem(request, pk):
     Consumables.objects.get(id=pk).delete()
     return render(request, 'alabrarAdmin/items_list.html')
 
-
+@login_required(login_url='login')
 def createExpenditure(request):
     items = Consumables.objects.all()
     context = {
@@ -663,7 +706,7 @@ def createExpenditure(request):
 
     return render(request, 'alabrarAdmin/create_expenditure.html', context)
 
-
+@login_required(login_url='login')
 def expensesList(request):
     items_expenses = ItemExpenditure.objects.all()
     context = {
