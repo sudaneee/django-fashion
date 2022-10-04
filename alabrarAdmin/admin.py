@@ -12,6 +12,8 @@ from .models import (
     StaffWage,
     Consumables,
     ItemExpenditure,
+    StaffActivity,
+    WorkType,
 )
 
 admin.site.register(Customer),
@@ -26,3 +28,5 @@ admin.site.register(Staff),
 admin.site.register(StaffWage),
 admin.site.register(Consumables),
 admin.site.register(ItemExpenditure),
+admin.site.register(StaffActivity),
+admin.site.register(WorkType),

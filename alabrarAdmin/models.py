@@ -163,6 +163,30 @@ class Staff(models.Model):
     def __str__(self):
         return self.name
 
+
+    
+
+class StaffWage(models.Model):
+    staff = models.ForeignKey(Staff, on_delete=models.CASCADE)
+    totat_amount = MoneyField(
+        decimal_places=2,
+        default=0,
+        default_currency='NGN',
+        max_digits=11,
+    )
+    amount_paid = MoneyField(
+        decimal_places=2,
+        default=0,
+        default_currency='NGN',
+        max_digits=11,
+    )
+
+
+    paid_on = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return str(self.staff)
+
 class WorkType(models.Model):
     name = models.CharField(max_length=200, null=True)
     amount = MoneyField(
@@ -176,17 +200,12 @@ class WorkType(models.Model):
         return self.name
 
 
-class StaffWage(models.Model):
+class StaffActivity(models.Model):
     staff = models.ForeignKey(Staff, on_delete=models.CASCADE)
-    amount_paid = MoneyField(
-        decimal_places=2,
-        default=0,
-        default_currency='NGN',
-        max_digits=11,
-    )
-    qauntity = models.CharField(max_length=200, null=True)
-    work_schedule = models.ForeignKey(WorkType, on_delete=models.CASCADE, null=True)
-    paid_on = models.DateTimeField(auto_now_add=True)
+    activitity = models.ForeignKey(WorkType, on_delete=models.CASCADE)
+    quantity = models.CharField(max_length=200)
+    done_on = models.DateTimeField(auto_now_add=True)
+    wages_group = models.ForeignKey(StaffWage, on_delete=models.CASCADE, null=True)
 
     def __str__(self):
         return str(self.staff)

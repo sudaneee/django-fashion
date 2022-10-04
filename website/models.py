@@ -82,3 +82,10 @@ class Shop(models.Model):
 
     def __str__(self):
         return self.tag
+
+class Slider(models.Model):
+    image = models.ImageField(upload_to='sliders', null=True)
+    tag = models.CharField(max_length=200, null=True)
+
+    def __str__(self):
+        return self.tag

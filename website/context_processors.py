@@ -8,6 +8,7 @@ def data_processor(request):
     profile = Picture.objects.get(tag='blank-profile')
 
     general_infomation = GeneralInformation.objects.filter().first()
+    about_image = Picture.objects.get(tag='about-image')
 
 
     return {
@@ -15,4 +16,5 @@ def data_processor(request):
         'small_logo' : small_logo,
         'profile': profile,
         'general_infomation': general_infomation,
+        'about_image': about_image,
     }

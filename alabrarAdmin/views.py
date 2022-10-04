@@ -8,6 +8,8 @@ import pytz
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
+from sms import send_sms
+
 
 from .models import (
     Customer,
@@ -22,6 +24,8 @@ from .models import (
     StaffWage,
     Consumables,
     ItemExpenditure,
+    WorkType,
+    StaffActivity,
 )
 from django.contrib import messages
 # Create your views here.
@@ -77,6 +81,11 @@ def addCustormer(request):
                 phone_number = phone_number,
                 contact_address = contact_address,
                 email  = email,
+            )
+            send_sms(
+            'Here is the message',
+            'Alabrar-Fashion',
+            [phone_number],
             )
             messages.info(request, 'Customer Created Successfully')
             
@@ -593,28 +602,28 @@ def deleteStaff(request, pk):
 
 
 @login_required(login_url='login')
-def payStaff(request):
-    job_items = JobItem.objects.all()
+def staffActivity(request):
+    activity_items = WorkType.objects.all()
 
     context = {
-        'job_items': job_items
+        'activity_items': activity_items
     }
 
-    if request.method == 'POST' and 'pay_staff' in request.POST:
+    if request.method == 'POST' and 'create_activity' in request.POST:
         staff_id = request.POST['staff_id']
-        amount_paid = request.POST['amount_paid']
-        job = request.POST['job']
+        qty = request.POST['qty']
+        activity = request.POST['activity']
 
-        StaffWage.objects.create(
+        StaffActivity.objects.create(
             staff = Staff.objects.get(staff_number=staff_id),
-            amount_paid = Money(int(amount_paid), 'NGN'),
-            job = JobItem.objects.get(id=int(job))
+            quantity = qty,
+            activitity = WorkType.objects.get(id=int(activity)),
 
         )
 
         messages.info(request, 'Staff Payment successfully')
-        return redirect('pay-staff')
-    return render(request, 'alabrarAdmin/pay_staff.html', context)
+        return redirect('create-staff-activity')
+    return render(request, 'alabrarAdmin/staff_activity.html', context)
     
 
 @login_required(login_url='login')

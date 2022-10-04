@@ -11,38 +11,39 @@
                     <div class="col-md-12 grid-margin stretch-card">
                         <div class="card">
                           <div class="card-body">
-                            <h4 class="card-title">Add Staff</h4>
+                            <h4 class="card-title">Create Staff Activity</h4>
                             <p class="card-description">
-                              Staff General Information
+                              Activity Information
                             </p>
                             <form method="POST">
                                 {% csrf_token %}
                                 <div class="form-group row">
-                                <div class="col-md-6">
+                                <div class="col-md-4">
                                     <label>Staff ID</label>
                                     <div id="the-basics">
                                     <input class="typeahead" name="staff_id" type="text" placeholder="Enter staff's ID">
                                     </div>
                                 </div>
-                                <div class="col-md-6">
-                                    <label>Amount Paid</label>
+                                <div class="col-md-4">
+                                    <label>Activity</label>
                                     <div id="the-basics">
-                                    <input class="typeahead" name="amount_paid" type="text" placeholder="Enter Amount">
-                                    </div>
-                                </div>
-                                <div class="col-md-12">
-                                    <label>Executed Job</label>
-                                    <div id="the-basics">
-                                      <select class="form-control" id="exampleSelectGender" name="job">
-                                        {% for job in job_items %}
-                                          <option value="{{job.id}}">{{job.job}} ----------> {{job.design_type}} ------> {{job.design_type.amount}}</option>
+                                      <select class="form-control" id="exampleSelectGender" name="activity">
+                                        {% for activity in activity_items %}
+                                          <option value="{{activity.id}}">{{activity.name}} ----------> {{activity.amount}}</option>
                                         {% endfor %}
                                       </select>
                                     </div>
-                                </div>                     
+                                </div>     
+
+                                <div class="col-md-4">
+                                  <label>Quantity</label>
+                                  <div id="the-basics">
+                                  <input class="typeahead" name="qty" type="number" placeholder="Enter Quantity">
+                                  </div>
+                              </div>
     
                                 </div>
-                                <button name="pay_staff" type="submit" class="btn btn-primary mb-2">Submit</button>
+                                <button name="create_activity" type="submit" class="btn btn-primary mb-2">Create</button>
                                 {% if messages %}
                                 {% for msg in messages %}
                                   <div class="alert alert-info alert-dismissable">

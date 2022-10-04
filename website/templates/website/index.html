@@ -17,11 +17,11 @@
         <div class="main-slider-carousel owl-carousel owl-theme">
             
 
-            
-            <div class="slide" style="background-image:url({% static 'website/images/main-slider/image-1.jpg' %})">
+            {% for slider in sliders %}
+            <div class="slide" style="background-image:url({{ slider.image.url }})">
                 <div class="auto-container">
                 	<div class="content clearfix">
-						<div class="title">In Wood We Trust</div>
+						<div class="title">In Fashion We Trust</div>
 						<h2>We Design. We Create. <br> We Restore</h2>
 						<div class="text">Our highly skilled and experienced team specialises in all aspects of <br> antique tailoring fashion design and restoration </div>
                     	<div class="link-box">
@@ -30,19 +30,7 @@
                     </div>
                 </div>
             </div>
-            <div class="slide" style="background-image:url({% static 'website/images/main-slider/image-1.jpg' %})">
-                <div class="auto-container">
-                	<div class="content clearfix">
-						<div class="title">In Wood We Trust</div>
-						<h2>We Design. We Create. <br> We Restore</h2>
-						<div class="text">Our highly skilled and experienced team specialises in all aspects of <br> antique tailoring fashion design and restoration </div>
-                    	<div class="link-box">
-							<a href="about.html" class="theme-btn btn-style-one"><span class="txt">Order Now</span></a>
-						</div>
-                    </div>
-                </div>
-            </div>
-            
+			{% endfor %}
 
 			
         </div>
@@ -71,14 +59,13 @@
 						</div>
 						<!-- Sec Title -->
 						<div class="sec-title">
-							<h2>About Sawmall</h2>
+							<h2>About Alabrar-Fashion</h2>
 							<div class="separate"></div>
 						</div>
-						<div class="text">Furniture restoration offers you two huge benefits: an opportunity to create a new style for your home without overspending and a chance to preserve the value of your furniture, especially if you have antiques. We regularly import fine antique pieces that are sold at trade prices.</div>
+						<div class="text">Material restoration offers you two huge benefits: an opportunity to create a new style for your self without overspending and a chance to preserve the value of your material, especially if you have antiques. We regularly import create new designs for you at affordable prices.</div>
 						<div class="lower-box">
 							<div class="clearfix">
 								<a href="about.html" class="theme-btn btn-style-two"><span class="txt">About Us</span></a>
-								<div class="signature"><img src="{% static 'website/images/icons/signature.png' %}" alt="" /></div>
 							</div>
 						</div>
 					</div>
@@ -88,7 +75,7 @@
 				<div class="video-column col-lg-6 col-md-12 col-sm-12">
 					<div class="inner-column">
 						<div class="image">
-							<img src="{% static 'website/images/resource/about.jpg' %}" alt="" />
+							<img src="{{ about_image.image.url }}" alt="" />
 							<!--Video Box-->
 							<div class="video-box wow fadeInRight" data-wow-delay="0ms" data-wow-duration="1500ms" style="background-image:url(images/resource/video-img.jpg)">
 								<figure class="video-image">
@@ -103,7 +90,7 @@
 							<div class="info-inner">
 								<div class="icon flaticon-call"></div>
 								<h3>Hotline</h3>
-								<div class="number">+44 567 890123</div>
+								<div class="number">{{general_infomation.phone_no1}}</div>
 							</div>
 						</div>
 						
@@ -125,11 +112,12 @@
 			</div>
 			<div class="three-item-carousel owl-carousel owl-theme">
 				
+				{% for service in services %}
 				<!-- Services Block -->
 				<div class="services-block">
 					<div class="inner-box">
 						<div class="image">
-							<img src="{% static 'website/images/resource/service-1.jpg' %}" alt= ""/>
+							<img src="{{service.image.url}}" alt= "" style="height:400px; object-fit:cover;"/>
 							<!-- Overlay Box -->
                             <div class="overlay-box">
                                 <div class="overlay-inner">
@@ -142,186 +130,12 @@
 							</div>
 						</div>
 						<div class="lower-box">
-							<h3><a href="services-detail.html">General Carpentry</a></h3>
+							<h3><a href="services-detail.html">{{service.tag}}</a></h3>
 						</div>
 					</div>
 				</div>
-				
-				<!-- Services Block -->
-				<div class="services-block">
-					<div class="inner-box">
-						<div class="image">
-							<img src="{% static 'website/images/resource/service-2.jpg' %}" alt= ""/>
-							<!-- Overlay Box -->
-                            <div class="overlay-box">
-                                <div class="overlay-inner">
-                                    <div class="content">
-										<div class="icon flaticon-chair"></div>
-										<div class="text">We also done furniture remodeling, our experts are help you remodeling your broken furnitures with in more than your expectation...</div>
-										<a href="about.html" class="theme-btn btn-style-two"><span class="txt">Read More</span></a>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="lower-box">
-							<h3><a href="services-detail.html">Furniture Remodeling</a></h3>
-						</div>
-					</div>
-				</div>
-				
-				<!-- Services Block -->
-				<div class="services-block">
-					<div class="inner-box">
-						<div class="image">
-							<img src="{% static 'website/images/resource/service-3.jpg' %}" alt= ""/>
-							<!-- Overlay Box -->
-                            <div class="overlay-box">
-                                <div class="overlay-inner">
-                                    <div class="content">
-										<div class="icon flaticon-chair"></div>
-										<div class="text">We also done furniture remodeling, our experts are help you remodeling your broken furnitures with in more than your expectation...</div>
-										<a href="about.html" class="theme-btn btn-style-two"><span class="txt">Read More</span></a>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="lower-box">
-							<h3><a href="services-detail.html">Manufactur Furniture</a></h3>
-						</div>
-					</div>
-				</div>
-				
-				<!-- Services Block -->
-				<div class="services-block">
-					<div class="inner-box">
-						<div class="image">
-							<img src="{% static 'website/images/resource/service-1.jpg' %}" alt= ""/>
-							<!-- Overlay Box -->
-                            <div class="overlay-box">
-                                <div class="overlay-inner">
-                                    <div class="content">
-										<div class="icon flaticon-chair"></div>
-										<div class="text">We also done furniture remodeling, our experts are help you remodeling your broken furnitures with in more than your expectation...</div>
-										<a href="about.html" class="theme-btn btn-style-two"><span class="txt">Read More</span></a>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="lower-box">
-							<h3><a href="services-detail.html">General Carpentry</a></h3>
-						</div>
-					</div>
-				</div>
-				
-				<!-- Services Block -->
-				<div class="services-block">
-					<div class="inner-box">
-						<div class="image">
-							<img src="{% static 'website/images/resource/service-2.jpg' %}" alt= ""/>
-							<!-- Overlay Box -->
-                            <div class="overlay-box">
-                                <div class="overlay-inner">
-                                    <div class="content">
-										<div class="icon flaticon-chair"></div>
-										<div class="text">We also done furniture remodeling, our experts are help you remodeling your broken furnitures with in more than your expectation...</div>
-										<a href="about.html" class="theme-btn btn-style-two"><span class="txt">Read More</span></a>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="lower-box">
-							<h3><a href="services-detail.html">Furniture Remodeling</a></h3>
-						</div>
-					</div>
-				</div>
-				
-				<!-- Services Block -->
-				<div class="services-block">
-					<div class="inner-box">
-						<div class="image">
-							<img src="{% static 'website/images/resource/service-3.jpg' %}" alt= ""/>
-							<!-- Overlay Box -->
-                            <div class="overlay-box">
-                                <div class="overlay-inner">
-                                    <div class="content">
-										<div class="icon flaticon-chair"></div>
-										<div class="text">We also done furniture remodeling, our experts are help you remodeling your broken furnitures with in more than your expectation...</div>
-										<a href="about.html" class="theme-btn btn-style-two"><span class="txt">Read More</span></a>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="lower-box">
-							<h3><a href="services-detail.html">Manufactur Furniture</a></h3>
-						</div>
-					</div>
-				</div>
-				
-				<!-- Services Block -->
-				<div class="services-block">
-					<div class="inner-box">
-						<div class="image">
-							<img src="{% static 'website/images/resource/service-1.jpg' %}" alt= ""/>
-							<!-- Overlay Box -->
-                            <div class="overlay-box">
-                                <div class="overlay-inner">
-                                    <div class="content">
-										<div class="icon flaticon-chair"></div>
-										<div class="text">We also done furniture remodeling, our experts are help you remodeling your broken furnitures with in more than your expectation...</div>
-										<a href="about.html" class="theme-btn btn-style-two"><span class="txt">Read More</span></a>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="lower-box">
-							<h3><a href="services-detail.html">General Carpentry</a></h3>
-						</div>
-					</div>
-				</div>
-				
-				<!-- Services Block -->
-				<div class="services-block">
-					<div class="inner-box">
-						<div class="image">
-							<img src="{% static 'website/images/resource/service-2.jpg' %}" alt= ""/>
-							<!-- Overlay Box -->
-                            <div class="overlay-box">
-                                <div class="overlay-inner">
-                                    <div class="content">
-										<div class="icon flaticon-chair"></div>
-										<div class="text">We also done furniture remodeling, our experts are help you remodeling your broken furnitures with in more than your expectation...</div>
-										<a href="about.html" class="theme-btn btn-style-two"><span class="txt">Read More</span></a>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="lower-box">
-							<h3><a href="services-detail.html">Furniture Remodeling</a></h3>
-						</div>
-					</div>
-				</div>
-				
-				<!-- Services Block -->
-				<div class="services-block">
-					<div class="inner-box">
-						<div class="image">
-							<img src="{% static 'website/images/resource/service-3.jpg' %}" alt= ""/>
-							<!-- Overlay Box -->
-                            <div class="overlay-box">
-                                <div class="overlay-inner">
-                                    <div class="content">
-										<div class="icon flaticon-chair"></div>
-										<div class="text">We also done furniture remodeling, our experts are help you remodeling your broken furnitures with in more than your expectation...</div>
-										<a href="about.html" class="theme-btn btn-style-two"><span class="txt">Read More</span></a>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="lower-box">
-							<h3><a href="services-detail.html">Manufactur Furniture</a></h3>
-						</div>
-					</div>
-				</div>
+				{% endfor %}
+
 				
 			</div>
 		</div>
@@ -437,138 +251,35 @@
     <section class="gallery-section">
     	<div class="auto-container">
         	<div class="sec-title centered">
-            	<h2>Our Featured Projects</h2>
+            	<h2>Our Featured Designs</h2>
                 <div class="separate"></div>
             </div>
             
             <!--Gallery Masonry-->
             <div class="sortable-masonry">
-                <!--Filter-->
-                <div class="filters">
-                	<ul class="filter-tabs filter-btns clearfix">
-                        <li class="filter active" data-role="button" data-filter=".all">all <span class="total-post">6</span></li>
-						<li class="filter" data-role="button" data-filter=".kitchen">Kitchen Modeling <span class="total-post">2</span></li>
-                        <li class="filter" data-role="button" data-filter=".furniture">Outdoor Furniture <span class="total-post">3</span></li>
-                        <li class="filter" data-role="button" data-filter=".windows">Door & Windows <span class="total-post">3</span></li>
-                        <li class="filter" data-role="button" data-filter=".custom">Custom Carpentry <span class="total-post">4</span></li>
-                    </ul>
-                </div>
                 <div class="items-container row clearfix">
 					
+					{% for gallery in galleries %}
 					<!-- Gallery Block -->
 					<div class="gallery-block masonry-item windows all col-lg-4 col-md-6 col-sm-12">
 						<div class="inner-box">
 							<div class="image">
-								<img src="{% static 'website/images/gallery/1.jpg' %}" alt="" />
+								<img src="{{gallery.image.url}}" alt="" />
 								<div class="overlay-box">
 									<div class="options">
 										<a href="projects-detail.html" class="plus-icon"><span class="icon flaticon-unlink"></span></a>
-										<a href="{% static 'website/images/gallery/1.jpg' %}" class="plus-icon lightbox-image" data-fancybox-group="gallery-one"><span class="icon flaticon-increase-size-option"></span></a>
+										<a href="{{gallery.image.url}}" class="plus-icon lightbox-image" data-fancybox-group="gallery-one"><span class="icon flaticon-increase-size-option"></span></a>
 									</div>
 									<div class="content clearfix">
-										<h3><a href="projects-detail.html">Office RENOVATION</a></h3>
-										<div class="category">Wood Work of Racks</div>
+										<h3><a href="projects-detail.html">{{gallery.tag}}</a></h3>
+										<div class="category"></div>
 									</div>
 								</div>
 							</div>
 						</div>
 					</div>
-					
-					<!-- Gallery Block -->
-					<div class="gallery-block masonry-item windows kitchen custom all col-lg-4 col-md-6 col-sm-12">
-						<div class="inner-box">
-							<div class="image">
-								<img src="{% static 'website/images/gallery/2.jpg' %}" alt="" />
-								<div class="overlay-box">
-									<div class="options">
-										<a href="projects-detail.html" class="plus-icon"><span class="icon flaticon-unlink"></span></a>
-										<a href="{% static 'website/images/gallery/2.jpg' %}" class="plus-icon lightbox-image" data-fancybox-group="gallery-one"><span class="icon flaticon-increase-size-option"></span></a>
-									</div>
-									<div class="content clearfix">
-										<h3><a href="projects-detail.html">Office RENOVATION</a></h3>
-										<div class="category">Wood Work of Racks</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-					
-					<!-- Gallery Block -->
-					<div class="gallery-block masonry-item custom furniture all col-lg-4 col-md-6 col-sm-12">
-						<div class="inner-box">
-							<div class="image">
-								<img src="{% static 'website/images/gallery/3.jpg' %}" alt="" />
-								<div class="overlay-box">
-									<div class="options">
-										<a href="projects-detail.html" class="plus-icon"><span class="icon flaticon-unlink"></span></a>
-										<a href="{% static 'website/images/gallery/3.jpg' %}" class="plus-icon lightbox-image" data-fancybox-group="gallery-one"><span class="icon flaticon-increase-size-option"></span></a>
-									</div>
-									<div class="content clearfix">
-										<h3><a href="projects-detail.html">Office RENOVATION</a></h3>
-										<div class="category">Wood Work of Racks</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-					
-					<!-- Gallery Block -->
-					<div class="gallery-block masonry-item custom kitchen all col-lg-4 col-md-6 col-sm-12">
-						<div class="inner-box">
-							<div class="image">
-								<img src="{% static 'website/images/gallery/4.jpg' %}" alt="" />
-								<div class="overlay-box">
-									<div class="options">
-										<a href="projects-detail.html" class="plus-icon"><span class="icon flaticon-unlink"></span></a>
-										<a href="{% static 'website/images/gallery/4.jpg' %}" class="plus-icon lightbox-image" data-fancybox-group="gallery-one"><span class="icon flaticon-increase-size-option"></span></a>
-									</div>
-									<div class="content clearfix">
-										<h3><a href="projects-detail.html">Office RENOVATION</a></h3>
-										<div class="category">Wood Work of Racks</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-					
-					<!-- Gallery Block -->
-					<div class="gallery-block masonry-item windows furniture all col-lg-4 col-md-6 col-sm-12">
-						<div class="inner-box">
-							<div class="image">
-								<img src="{% static 'website/images/gallery/5.jpg' %}" alt="" />
-								<div class="overlay-box">
-									<div class="options">
-										<a href="projects-detail.html" class="plus-icon"><span class="icon flaticon-unlink"></span></a>
-										<a href="{% static 'website/images/gallery/5.jpg' %}" class="plus-icon lightbox-image" data-fancybox-group="gallery-one"><span class="icon flaticon-increase-size-option"></span></a>
-									</div>
-									<div class="content clearfix">
-										<h3><a href="projects-detail.html">Office RENOVATION</a></h3>
-										<div class="category">Wood Work of Racks</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-					
-					<!-- Gallery Block -->
-					<div class="gallery-block masonry-item custom furniture all col-lg-8 col-md-12 col-sm-12">
-						<div class="inner-box">
-							<div class="image">
-								<img src="{% static 'website/images/gallery/6.jpg' %}" alt="" />
-								<div class="overlay-box">
-									<div class="options">
-										<a href="projects-detail.html" class="plus-icon"><span class="icon flaticon-unlink"></span></a>
-										<a href="{% static 'website/images/gallery/6.jpg' %}" class="plus-icon lightbox-image" data-fancybox-group="gallery-one"><span class="icon flaticon-increase-size-option"></span></a>
-									</div>
-									<div class="content clearfix">
-										<h3><a href="projects-detail.html">Office RENOVATION</a></h3>
-										<div class="category">Wood Work of Racks</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-					
+					{% endfor %}
+
 				</div>
 			
 				<div class="btn-box text-center">
@@ -585,7 +296,7 @@
 			
 			<!-- Sec Title -->
 			<div class="sec-title light centered">
-				<h2>Our Industry Workers </h2>
+				<h2>Our Managment Team </h2>
 				<div class="separate"></div>
 			</div>
 			
