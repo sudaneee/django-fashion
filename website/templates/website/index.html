@@ -301,12 +301,13 @@
 			</div>
 			
 			<div class="row clearfix">
-			
+				
+				{% for staff in staffs%}
 				<!-- Team Block -->
 				<div class="team-block-two col-lg-4 col-md-6 col-sm-12">
 					<div class="inner-box wow fadeInLeft" data-wow-delay="0ms" data-wow-duration="1500ms">
 						<div class="image">
-							<img src="{% static 'website/images/resource/team-1.jpg' %}" alt="" />
+							<img src="{{staff.image.url}}" alt="" />
 							<!-- Social Nav -->
 							<ul class="social-nav">
 								<li><a href="#"><span class="fa fa-facebook-f"></span></a></li>
@@ -316,51 +317,14 @@
 							</ul>
 						</div>
 						<div class="lower-content">
-							<h3>Kraig Melugin</h3>
-							<div class="designation">Manager</div>
+							<h3></h3>
+							<div class="designation">{{staff.designation}}</div>
 						</div>
 					</div>
 				</div>
-				
-				<!-- Team Block -->
-				<div class="team-block-two col-lg-4 col-md-6 col-sm-12">
-					<div class="inner-box wow fadeInUp" data-wow-delay="0ms" data-wow-duration="1500ms">
-						<div class="image">
-							<img src="{% static 'website/images/resource/team-2.jpg' %}" alt="" />
-							<!-- Social Nav -->
-							<ul class="social-nav">
-								<li><a href="#"><span class="fa fa-facebook-f"></span></a></li>
-								<li><a href="#"><span class="fa fa-google-plus"></span></a></li>
-								<li><a href="#"><span class="fa fa-twitter"></span></a></li>
-								<li><a href="#"><span class="fa fa-skype"></span></a></li>
-							</ul>
-						</div>
-						<div class="lower-content">
-							<h3>John Smith</h3>
-							<div class="designation">Cheif Officer</div>
-						</div>
-					</div>
-				</div>
-				
-				<!-- Team Block -->
-				<div class="team-block-two col-lg-4 col-md-6 col-sm-12">
-					<div class="inner-box wow fadeInRight" data-wow-delay="0ms" data-wow-duration="1500ms">
-						<div class="image">
-							<img src="{% static 'website/images/resource/team-3.jpg' %}" alt="" />
-							<!-- Social Nav -->
-							<ul class="social-nav">
-								<li><a href="#"><span class="fa fa-facebook-f"></span></a></li>
-								<li><a href="#"><span class="fa fa-google-plus"></span></a></li>
-								<li><a href="#"><span class="fa fa-twitter"></span></a></li>
-								<li><a href="#"><span class="fa fa-skype"></span></a></li>
-							</ul>
-						</div>
-						<div class="lower-content">
-							<h3>Mark Donald</h3>
-							<div class="designation">Site Manager</div>
-						</div>
-					</div>
-				</div>
+
+				{% endfor %}
+
 			
 			</div>
 			
