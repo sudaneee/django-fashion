@@ -1,0 +1,62 @@
+{% extends 'alabrarAdmin/base.html' %}
+{% load static %}
+{% block content%}
+
+    {% include 'alabrarAdmin/partials/_navbar.html' %}
+    <div class="container-fluid page-body-wrapper">
+        {% include 'alabrarAdmin/partials/_sidebar.html' %}
+        <div class="main-panel">        
+            <div class="content-wrapper">
+                <div class="row">
+                    <div class="col-md-12 grid-margin stretch-card">
+                        <div class="card">
+                          <div class="card-body">
+                            <h4 class="card-title">Staff Weekly Payment</h4>
+                            <p class="card-description">
+                              
+                            </p>
+                            <form method="POST">
+                                {% csrf_token %}
+                                <div class="form-group row">
+                                <div class="col-md-12">
+                                    <label>Staff ID</label>
+                                    <div id="the-basics">
+                                    <input class="typeahead" name="staff_id" type="text" placeholder="Enter staff's ID">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label>From</label>
+                                    <div id="the-basics">
+                                    <input class="typeahead" name="from" type="text" placeholder="Enter Starting Date e.g 2022-01-31">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label>From</label>
+                                    <div id="the-basics">
+                                    <input class="typeahead" name="to" type="text" placeholder="Enter Ending Date e.g 2022-01-31">
+                                    </div>
+                                </div>
+   
+        
+                                </div>
+                                <button name="proceed" type="submit" class="btn btn-primary mb-2">Poceed</button>
+                                {% if messages %}
+                                {% for msg in messages %}
+                                  <div class="alert alert-info alert-dismissable">
+                                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                                    {{msg.message}}
+                                  </div>
+                                {% endfor %}
+                              {% endif %}
+                            </form>
+                          </div>
+                        </div>
+                      </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% include 'alabrarAdmin/partials/_footer.html' %}
+
+{% endblock content%}

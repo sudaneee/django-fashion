@@ -2,7 +2,7 @@ from multiprocessing import context
 from django.shortcuts import redirect, render
 from django.http import HttpResponse
 from PIL import Image
-import datetime
+from datetime import datetime, timedelta, date
 from djmoney.money import Money
 import pytz
 from django.contrib.auth.models import User
@@ -723,4 +723,51 @@ def expensesList(request):
     }
   
     return render(request, 'alabrarAdmin/expenses_list.html', context)
+
+
+@login_required(login_url='login')
+def payStaff(request):
+    if request.method == 'POST' and 'proceed' in request.POST:
+        staff_id = request.POST['staff_id']
+        start_date = request.POST['from']
+        end_date = request.POST['to']
+
+        return redirect('confirm-payment', staff_id, start_date, end_date)      
+
+    return render(request, 'alabrarAdmin/pay_staff.html')
+
+def confirmPayment(request, pk, start_date, end_date):
+    new_end_date = date(int(end_date[0:4]), int(end_date[5:7]), int(end_date[8:10])) + timedelta(days=1)
+    query = StaffActivity.objects.filter(
+        done_on__range=[start_date, new_end_date],
+        staff=Staff.objects.get(staff_number=pk)
+        ).all()
+
+    grand_total = []
+    for i in query:
+        grand_total.append(i.activitity.amount*i.quantity)
+    
+    staff = Staff.objects.get(staff_number=pk)
+    context = {
+        'staff': staff,
+        'g_total': sum(grand_total),
+        'activities': query,
+    }
+
+    if request.method == 'POST' and 'pay' in request.POST:
+        amount_paid = request.POST['amount_paid']
+        
+        qry = StaffWage.objects.create(
+            staff = Staff.objects.get(staff_number=pk),
+            total_amount = sum(grand_total),
+            amount_paid = Money(int(amount_paid), 'NGN')
+        )
+
+        for i in query:
+            i.wages_group = StaffWage.objects.get(id=qry.id)
+            i.save()
+
+    return render(request, 'alabrarAdmin/confirm_staff_payment.html', context)
+
+
 

@@ -1,0 +1,82 @@
+{% extends 'alabrarAdmin/base.html' %}
+{% load static %}
+{% load mathfilters %}
+{% block content%}
+
+    {% include 'alabrarAdmin/partials/_navbar.html' %}
+    <div class="container-fluid page-body-wrapper">
+        {% include 'alabrarAdmin/partials/_sidebar.html' %}
+        <div class="main-panel">        
+            <div class="content-wrapper">
+                <div class="row">
+                    <div class="col-lg-12 grid-margin stretch-card">
+                        <div class="card">
+                          <div class="card-body">
+                            <h4 class="card-title">Staff: {{staff}}</h4>
+                            <p class="card-description">
+                              Payment Details 
+                            </p>
+                            <div class="table-responsive">
+                              <table class="table">
+                                <thead>
+                                  <tr>
+                                    <th>S/N</th>
+                                    <th>Activity</th>
+                                    <th>Quantity</th>
+                                    <th>Amount</th>
+                                    <th>Total</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                {% for activity in activities %}
+                                  <tr>
+                                    <td>{{forloop.counter}}</td>
+                                    <td>{{activity.activitity}}</td>
+                                    <td>{{activity.quantity}}</td>
+                                    <td>{{activity.activitity.amount}}</td>
+                                    <td>{{activity.activitity.amount|mul:activity.quantity}}</td>
+                                  </tr>
+                                {% endfor %}
+     
+                                </tbody>
+                                <tbody>
+                                    <tr>
+                                        <th colspan='4'>Grand Total</th>
+                                        <td>{{g_total}}</td>
+                                    </tr>
+                                </tbody>
+                              </table>
+                            </div>
+                            <form method="POST">
+                                {% csrf_token %}
+                                <div class="form-group row">
+                                <div class="col-md-12">
+                                    <label>Amount Paid</label>
+                                    <div id="the-basics">
+                                    <input class="typeahead" name="amount_paid" type="text" placeholder="Enter Amount Paid">
+                                    </div>
+                                </div>
+   
+        
+                                </div>
+                                <button name="pay" type="submit" class="btn btn-primary mb-2">Pay</button>
+                                {% if messages %}
+                                {% for msg in messages %}
+                                  <div class="alert alert-info alert-dismissable">
+                                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                                    {{msg.message}}
+                                  </div>
+                                {% endfor %}
+                              {% endif %}
+                            </form>
+                          </div>
+                        </div>
+                      </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% include 'alabrarAdmin/partials/_footer.html' %}
+
+{% endblock content%}

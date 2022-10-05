@@ -26,6 +26,8 @@ urlpatterns = [
     path('delete-item/<pk>/', views.deleteItem, name='delete-item'),
     path('create-expenditure/', views.createExpenditure, name='create-expenditure'),
     path('expenses-list/', views.expensesList, name='expenses-list'),
+    path('pay-staff/', views.payStaff, name='pay-staff'),
+    path('confirm-payment/<pk>/<str:start_date>/<str:end_date>/', views.confirmPayment, name='confirm-payment')
     
     
 ]

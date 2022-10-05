@@ -168,7 +168,7 @@ class Staff(models.Model):
 
 class StaffWage(models.Model):
     staff = models.ForeignKey(Staff, on_delete=models.CASCADE)
-    totat_amount = MoneyField(
+    total_amount = MoneyField(
         decimal_places=2,
         default=0,
         default_currency='NGN',
