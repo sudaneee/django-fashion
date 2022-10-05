@@ -1,0 +1,67 @@
+{% extends 'alabrarAdmin/base.html' %}
+{% load static %}
+{% block content%}
+
+    {% include 'alabrarAdmin/partials/_navbar.html' %}
+    <div class="container-fluid page-body-wrapper">
+        {% include 'alabrarAdmin/partials/_sidebar.html' %}
+        <div class="main-panel">        
+            <div class="content-wrapper">
+                <div class="row">
+                    <div class="col-md-12 grid-margin stretch-card">
+                        <div class="card">
+                          <div class="card-body">
+                            <h4 class="card-title">Create Staff Activity</h4>
+                            <p class="card-description">
+                              Activity Information
+                            </p>
+                            <form method="POST">
+                                {% csrf_token %}
+                                <div class="form-group row">
+                                <div class="col-md-4">
+                                    <label>Staff ID</label>
+                                    <div id="the-basics">
+                                    <input class="typeahead" name="staff_id" type="text" value={{activity.staff.staff_number}}>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <label>Activity</label>
+                                    <div id="the-basics">
+                                      <select class="form-control" id="exampleSelectGender" name="activity">
+                                        <option value="{{activity.activitity.id}}">{{activity.activitity}} ----------> {{activity.activitity.amount}}</option>
+                                        {% for i in activity_items %}
+                                          <option value="{{i.id}}">{{i.name}} ----------> {{i.amount}}</option>
+                                        {% endfor %}
+                                      </select>
+                                    </div>
+                                </div>     
+
+                                <div class="col-md-4">
+                                  <label>Quantity</label>
+                                  <div id="the-basics">
+                                  <input class="typeahead" name="qty" type="number" value={{activity.quantity}}>
+                                  </div>
+                              </div>
+    
+                                </div>
+                                <button name="update_activity" type="submit" class="btn btn-primary mb-2">Update</button>
+                                {% if messages %}
+                                {% for msg in messages %}
+                                  <div class="alert alert-info alert-dismissable">
+                                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                                    {{msg.message}}
+                                  </div>
+                                {% endfor %}
+                              {% endif %}
+                            </form>
+                          </div>
+                        </div>
+                      </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% include 'alabrarAdmin/partials/_footer.html' %}
+
+{% endblock content%}

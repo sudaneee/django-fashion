@@ -736,6 +736,8 @@ def payStaff(request):
 
     return render(request, 'alabrarAdmin/pay_staff.html')
 
+
+@login_required(login_url='login')
 def confirmPayment(request, pk, start_date, end_date):
     new_end_date = date(int(end_date[0:4]), int(end_date[5:7]), int(end_date[8:10])) + timedelta(days=1)
     query = StaffActivity.objects.filter(
@@ -771,3 +773,64 @@ def confirmPayment(request, pk, start_date, end_date):
 
 
 
+
+@login_required(login_url='login')
+def activityList(request):
+    activities = StaffActivity.objects.all()
+    context = {
+        'activities': activities,
+    }
+    return render(request, 'alabrarAdmin/activity_list.html', context)
+
+@login_required(login_url='login')
+def wagesList(request):
+    wages = StaffWage.objects.all()
+    context = {
+        'wages': wages,
+    }
+    return render(request, 'alabrarAdmin/wages_list.html', context)
+
+
+@login_required(login_url='login')
+def editActivity(request, pk):
+    activity = StaffActivity.objects.get(id=pk)
+    activity_items = WorkType.objects.all()
+    context = {
+        'activity': activity,
+        'activity_items': activity_items,
+    }
+
+    if request.method == 'POST' and 'update_activity' in request.POST:
+        staff_id = request.POST['staff_id']
+        activity_item = request.POST['activity']
+        qty = request.POST['qty']
+
+        activity.staff = Staff.objects.get(staff_number=staff_id)
+        activity.activitity = WorkType.objects.get(id=activity_item)
+        activity.quantity = qty
+        activity.save()
+
+        return redirect('activity-list')
+
+
+
+    return render(request, 'alabrarAdmin/update_staff_activity.html', context)
+
+
+
+@login_required(login_url='login')
+def editWages(request, pk):
+    wage = StaffWage.objects.get(id=pk)
+    activites = StaffActivity.objects.filter(wages_group=wage).all()
+    context = {
+        'activities': activites,
+        'wage': wage,
+    }
+
+    if request.method == 'POST' and 'update_payment' in request.POST:
+        amount_paid = request.POST['amount_paid']
+        wage.amount_paid = wage.amount_paid + Money(int(amount_paid), 'NGN')
+        wage.save()
+
+        return redirect('wages-list')
+    return render(request, 'alabrarAdmin/edit_staff_payment.html', context)

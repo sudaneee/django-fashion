@@ -27,7 +27,9 @@ urlpatterns = [
     path('create-expenditure/', views.createExpenditure, name='create-expenditure'),
     path('expenses-list/', views.expensesList, name='expenses-list'),
     path('pay-staff/', views.payStaff, name='pay-staff'),
-    path('confirm-payment/<pk>/<str:start_date>/<str:end_date>/', views.confirmPayment, name='confirm-payment')
-    
-    
+    path('confirm-payment/<pk>/<str:start_date>/<str:end_date>/', views.confirmPayment, name='confirm-payment'),
+    path('activity-list/', views.activityList, name='activity-list'),
+    path('edit-activity/<pk>/', views.editActivity, name='edit-activity'),
+    path('wages-list/', views.wagesList, name='wages-list'),
+    path('edit-wage/<pk>/', views.editWages, name='edit-wage')
 ]
