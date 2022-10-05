@@ -831,7 +831,7 @@ def editWages(request, pk):
         amount_paid = request.POST['amount_paid']
         wage.amount_paid = wage.amount_paid + Money(int(amount_paid), 'NGN')
         wage.save()
-        print('HElLO')
+
 
         return redirect('wages-list')
     return render(request, 'alabrarAdmin/edit_staff_payment.html', context)
