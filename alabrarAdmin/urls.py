@@ -31,5 +31,7 @@ urlpatterns = [
     path('activity-list/', views.activityList, name='activity-list'),
     path('edit-activity/<pk>/', views.editActivity, name='edit-activity'),
     path('wages-list/', views.wagesList, name='wages-list'),
-    path('edit-wage/<pk>/', views.editWages, name='edit-wage')
+    path('edit-wage/<pk>/', views.editWages, name='edit-wage'),
+    path('general-expenditure/', views.generalExpenditure, name='general-expenditure'),
+    path('general-expenditure/<str:month>/<str:year>/', views.generalExpenditure, name='general-expenditure'),
 ]

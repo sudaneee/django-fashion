@@ -213,7 +213,7 @@ class StaffActivity(models.Model):
 
 class Consumables(models.Model):
     item = models.CharField(max_length=200, null=True)
-    price = MoneyField(
+    amount = MoneyField(
         decimal_places=2,
         default=0,
         default_currency='NGN',
@@ -231,7 +231,6 @@ class ItemExpenditure(models.Model):
         default_currency='NGN',
         max_digits=11,
     )
-    quantity = models.CharField(max_length=200, null=True)
     incurred_on = models.DateTimeField(auto_now_add=True)
     recieved_by = models.ForeignKey(Staff, on_delete=models.CASCADE, null=True)
 

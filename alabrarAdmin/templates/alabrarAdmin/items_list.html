@@ -21,7 +21,7 @@
                                   <tr>
                                     <th>S/N</th>
                                     <th>Item</th>
-                                    <th>Price</th>
+                                    <th>Available Balance</th>
 
                                     <th>Edit</th>
                                    
@@ -32,7 +32,7 @@
                                   <tr>
                                     <td>{{forloop.counter}}</td>
                                     <td>{{item.item}}</td>
-                                    <td>{{item.price}}</td>
+                                    <td>{{item.amount}}</td>
                                     <td><label class="badge badge-success"><a class="nav-link" href="{% url 'item-details' item.id %}"><i class="mdi mdi-tooltip-edit"></i></a></label></td>
                                     
 

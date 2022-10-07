@@ -1,0 +1,112 @@
+{% extends 'alabrarAdmin/base.html' %}
+{% load static %}
+{% load mathfilters %}
+{% block content%}
+
+    {% include 'alabrarAdmin/partials/_navbar.html' %}
+    <div class="container-fluid page-body-wrapper">
+        {% include 'alabrarAdmin/partials/_sidebar.html' %}
+        <div class="main-panel">        
+            <div class="content-wrapper">
+                <div class="row">
+                    <div>
+                      <form method="POST">
+                        {% csrf_token %}
+                        <div class="form-group row">
+                        <div class="col-md-12">
+                          <label>Filter Date</label>
+                      
+                          <div id="the-basics">
+                              <div id="datepicker-popup" class="input-group date datepicker navbar-date-picker">
+                                  <span class="input-group-addon input-group-prepend border-right">
+                                    <span class="icon-calendar input-group-text calendar-icon"></span>
+                                  </span>
+                                  <input name="filter_date" type="text" class="form-control">
+                                  <button name="filter" type="submit" class="btn btn-primary mb-2">Filter</button>
+                                </div>
+                                
+                          </div>
+                        </div>
+
+                        
+                        </div>
+                        
+                    </form>
+                    </div>
+                    <div class="col-lg-6 grid-margin stretch-card">
+                        <div class="card">
+                          <div class="card-body">
+                            <h4 class="card-title">Consumable Expenditure </h4>
+                            <p class="card-description">
+                              
+                            </p>
+                            <div class="table-responsive">
+                              <table class="table">
+                                <thead>
+                                  <tr>
+                                    <th>S/N</th>
+                                    <th>Consumable</th>
+                                    <th>Date</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                {% for expense in item_expenses %}
+                                  <tr>
+                                    <td>{{forloop.counter}}</td>
+                                    <td>{{expense.amount}}</td>
+                                    <td>{{expense.incurred_on}}</td>
+                                  </tr>
+                                {% endfor %}
+                                <tr>
+                                  <th>Total</th>
+                                  <td>{{item_sum}}<td>
+                                </tr>
+                                </tbody>
+                              </table>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    <div class="col-lg-6 grid-margin stretch-card">
+                        <div class="card">
+                          <div class="card-body">
+                            <h4 class="card-title">Staff Wages </h4>
+                            <p class="card-description">
+                              
+                            </p>
+                            <div class="table-responsive">
+                              <table class="table">
+                                <thead>
+                                  <tr>
+                                    <th>S/N</th>
+                                    <th>Staff Wages</th>   
+                                    <th>Date</th>                                
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                {% for staff in staff_wages %}
+                                  <tr>
+                                    <td>{{forloop.counter}}</td>
+                                    <td>{{staff.amount_paid}}</td>
+                                    <td>{{staff.paid_on}}</td>
+                                  </tr>
+                                {% endfor %}
+                                <tr>
+                                  <th>Total</th>
+                                  <td>{{wages_sum}}<td>
+                                </tr>
+     
+                                </tbody>
+                              </table>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% include 'alabrarAdmin/partials/_footer.html' %}
+
+{% endblock content%}

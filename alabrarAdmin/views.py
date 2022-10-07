@@ -2,7 +2,8 @@ from multiprocessing import context
 from django.shortcuts import redirect, render
 from django.http import HttpResponse
 from PIL import Image
-from datetime import datetime, timedelta, date
+from datetime import timedelta, date
+import datetime
 from djmoney.money import Money
 import pytz
 from django.contrib.auth.models import User
@@ -631,11 +632,11 @@ def addConsumable(request):
 
     if request.method == 'POST' and 'add_item' in request.POST:
         item = request.POST['item']
-        price = request.POST['price']
+        amount = request.POST['amount']
 
         Consumables.objects.create(
             item = item,
-            price = Money(int(price), 'NGN')
+            amount = Money(int(amount), 'NGN')
         )
 
         messages.info(request, 'Item Added successfully')
@@ -661,21 +662,21 @@ def itemDetails(request, pk):
 
     if request.method == 'POST' and 'update_item' in request.POST:
         item_name = request.POST['item']
-        price = request.POST['price']
+        amount = request.POST['amount']
 
-        if 'NGN' in price:
-            price_currency = price[0:3]
-            actual_currency = price[3:-3]
+        if 'NGN' in amount:
+            price_currency = amount[0:3]
+            actual_currency = amount[3:-3]
             final_price = int(actual_currency.replace(',', ''))
-            
-        
             item.item = item_name
-            item.price = Money(final_price, price_currency)
+            item.amount = Money(final_price, price_currency)
             item.save()
+
+
         
         else:
             item.item = item_name
-            item.price = Money(int(price), 'NGN')
+            item.amount = Money(int(amount), 'NGN')
             item.save()
 
 
@@ -701,14 +702,18 @@ def createExpenditure(request):
 
     if request.method == 'POST' and 'add_expenditure' in request.POST:
         item = request.POST['item']
-        quantity = request.POST['quantity']
+        amount_collected = request.POST['amount_collected']
         staff_id = request.POST['staff_id']
 
         ItemExpenditure.objects.create(
             item = Consumables.objects.get(id=item),
-            quantity = quantity,
+            amount = Money(int(amount_collected), 'NGN'),
             recieved_by = Staff.objects.get(staff_number=staff_id)
         )
+
+        item_sub = Consumables.objects.get(id=item)
+        item_sub.amount -= Money(int(amount_collected), 'NGN')
+        item_sub.save()
 
         messages.info(request, 'Expenditure Recorded successfully')
         return redirect('expenses-list')
@@ -835,3 +840,45 @@ def editWages(request, pk):
 
         return redirect('wages-list')
     return render(request, 'alabrarAdmin/edit_staff_payment.html', context)
+
+
+
+@login_required(login_url='login')
+def generalExpenditure(request, month=None, year=None):
+    if request.method == 'POST' and 'filter' in request.POST:
+        filter_date = request.POST['filter_date']
+        c_month, c_day, c_year = filter_date.split('/')
+        return redirect('general-expenditure', c_month, c_year)
+        
+        # c_d = datetime.date(int(c_year), int(c_month), int(c_day))
+
+    if month and year:
+
+
+        staff_wages = StaffWage.objects.filter(paid_on__year=year, paid_on__month=month).all()
+        item_expenses = ItemExpenditure.objects.filter(incurred_on__year=year, incurred_on__month=month).all()
+    else:
+        staff_wages = StaffWage.objects.all()
+        item_expenses = ItemExpenditure.objects.all()
+    
+    wages_sum = []
+    item_sum = []
+
+
+    
+
+
+    for i in staff_wages:
+        wages_sum.append(i.amount_paid)
+
+    for j in item_expenses:
+        item_sum.append(j.amount)
+
+    context = {
+        'staff_wages': staff_wages,
+        'wages_sum': sum(wages_sum),
+        'item_expenses': item_expenses,
+        'item_sum': sum(item_sum),
+
+    }
+    return render(request, 'alabrarAdmin/general_expenditures.html', context)
