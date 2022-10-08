@@ -1,0 +1,86 @@
+{% extends 'alabrarAdmin/base.html' %}
+{% load static %}
+{% load mathfilters %}
+{% block content%}
+
+    {% include 'alabrarAdmin/partials/_navbar.html' %}
+    <div class="container-fluid page-body-wrapper">
+        {% include 'alabrarAdmin/partials/_sidebar.html' %}
+        <div class="main-panel">        
+            <div class="content-wrapper">
+                <div class="row">
+                    <div>
+                      <form method="POST">
+                        {% csrf_token %}
+                        <div class="form-group row">
+                        <div class="col-md-12">
+                          <label>Filter Date</label>
+                      
+                          <div id="the-basics">
+                              <div id="datepicker-popup" class="input-group date datepicker navbar-date-picker">
+                                  <span class="input-group-addon input-group-prepend border-right">
+                                    <span class="icon-calendar input-group-text calendar-icon"></span>
+                                  </span>
+                                  <input name="filter_date" type="text" class="form-control">
+                                  <button name="filter" type="submit" class="btn btn-primary mb-2">Filter</button>
+                                </div>
+                                
+                          </div>
+                        </div>
+
+                        
+                        </div>
+                        
+                    </form>
+                    </div>
+                    <div class="col-lg-12 grid-margin stretch-card">
+                        <div class="card">
+                          <div class="card-body">
+                            <h4 class="card-title">General Income </h4>
+                            <p class="card-description">
+                              
+                            </p>
+                            <div class="table-responsive">
+                              <table class="table">
+                                <thead>
+                                  <tr>
+                                    <th>S/N</th>
+                                    <th>Depositor</th>
+                                    <th>Amount Charged</th>
+                                    <th>Amount Paid</th>
+                                    <th>Outstanding Balance</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                {% for inc in income %}
+                                  <tr>
+                                    <td>{{forloop.counter}}</td>
+                                    <td>{{inc.customer}}</td>
+                                    <td>{{inc.amount_charged}}</td>
+                                    <td>{{inc.amount_paid}}</td>
+                                    <td>{{inc.balance}}</td>
+                                  </tr>
+                                {% endfor %}
+                                <tr>
+                                  <th>Total</th>
+                                  <th></th>
+                                  <th>{{amount_charged}}</th>
+                                  <th>{{income_sum}}</th>
+                                  <th>{{expected_income}}</th>
+                   
+                       
+                                </tr>
+                                </tbody>
+                              </table>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% include 'alabrarAdmin/partials/_footer.html' %}
+
+{% endblock content%}

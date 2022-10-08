@@ -2,8 +2,8 @@ from multiprocessing import context
 from django.shortcuts import redirect, render
 from django.http import HttpResponse
 from PIL import Image
-from datetime import timedelta, date
-import datetime
+from datetime import timedelta, date, datetime
+# import datetime
 from djmoney.money import Money
 import pytz
 from django.contrib.auth.models import User
@@ -63,7 +63,46 @@ def logoutUser(request):
 
 @login_required(login_url='login')
 def dashboard(request):
-    return render(request, 'alabrarAdmin/dashboard.html')
+
+    enddate = datetime.today()
+    startdate = enddate - timedelta(days=6)
+
+    item_expenses = ItemExpenditure.objects.filter(incurred_on__range=[startdate, enddate]).all()
+    wages_expenses = StaffWage.objects.filter(paid_on__range=[startdate, enddate]).all()
+    general_income = Job.objects.filter(recieved__range=[startdate, enddate]).all()
+    outstanding_expenses = StaffWage.objects.filter(paid_on__range=[startdate, enddate]).all()
+    expected_income = Job.objects.all()
+
+    all_expenses = []
+    all_income = []
+    outstanding_expenditure = []
+    awaiting_payments = []
+
+    for i in item_expenses:
+        all_expenses.append(i.amount)
+    
+    for j in wages_expenses:
+        all_expenses.append(j.amount_paid)
+
+    for k in general_income:
+        all_income.append(k.amount_paid)
+
+    for l in outstanding_expenses:
+        outstanding_expenditure.append(l.total_amount - l.amount_paid)
+
+    for m in expected_income:
+        awaiting_payments.append(m.balance)
+
+    
+    context = {
+        'expenditure': sum(all_expenses),
+        'income': sum(all_income),
+        'outstanding_expenditure': sum(outstanding_expenditure),
+        'awaiting_payments': sum(awaiting_payments)
+    }
+    
+
+    return render(request, 'alabrarAdmin/dashboard.html', context)
 
 
 @login_required(login_url='login')
@@ -513,11 +552,11 @@ def viewJobs(request):
 
     for job in jobs:
 
-        if job.collection_date <= utc.localize(datetime.datetime.now()):
+        if job.collection_date <= utc.localize(datetime.now()):
             status.append('completed')
         else:
             status.append('pending')
-    yanxu = utc.localize(datetime.datetime.now())
+    yanxu = utc.localize(datetime.now())
     context = {
         'jobs': jobs,
         'yanxu': yanxu
@@ -882,3 +921,43 @@ def generalExpenditure(request, month=None, year=None):
 
     }
     return render(request, 'alabrarAdmin/general_expenditures.html', context)
+
+@login_required(login_url='login')
+def generalIncome(request, month=None, year=None):
+    if request.method == 'POST' and 'filter' in request.POST:
+        filter_date = request.POST['filter_date']
+        c_month, c_day, c_year = filter_date.split('/')
+        return redirect('general-income', c_month, c_year)
+        
+        # c_d = datetime.date(int(c_year), int(c_month), int(c_day))
+
+    if month and year:
+
+
+        general_income = Job.objects.filter(recieved__year=year, recieved__month=month).all()
+       
+    else:
+        general_income = Job.objects.all()
+
+    
+    income_sum = []
+    charged_amount_sum = []
+    expected_income_sum = []
+    
+
+
+    for i in general_income:
+        charged_amount_sum.append(i.amount_charged)
+        income_sum.append(i.amount_paid)
+        expected_income_sum.append(i.balance)
+
+
+    context = {
+        'income': general_income,
+        'amount_charged': sum(charged_amount_sum),
+        'income_sum': sum(income_sum),
+        'expected_income': sum(expected_income_sum),
+
+    }
+    return render(request, 'alabrarAdmin/general_income.html', context)
+

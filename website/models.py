@@ -89,3 +89,20 @@ class Slider(models.Model):
 
     def __str__(self):
         return self.tag
+
+class ApplicationForms(models.Model):
+    description = models.CharField(max_length=200, null=True)
+    file_upload = models.FileField(upload_to='forms', null=True)
+
+    def __str__(self):
+        return self.description
+
+
+class Testimonial(models.Model):
+    image = models.ImageField(upload_to='services', null=True)
+    tag = models.CharField(max_length=200, null=True)
+    content = models.TextField(null=True)
+
+
+    def __str__(self):
+        return self.tag

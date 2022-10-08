@@ -1,0 +1,78 @@
+{% extends 'website/base.html' %}
+{%load static%}
+{%block content%}
+
+<div class="page-wrapper">
+ 	
+    <!-- Preloader -->
+    <div class="preloader"></div>
+ 	
+ 	<!-- Main Header-->
+	{% include 'website/partials/header.html' %}
+    <!-- End Main Header -->
+	
+	<!--Gallery Section-->
+    <section class="gallery-section">
+    	<div class="auto-container">
+            
+            <!--Gallery Masonry-->
+            <div class="sortable-masonry">
+
+                <div class="items-container row clearfix">
+					
+					{% for gallery in page_obj %}
+					<!-- Gallery Block -->
+					<div class="gallery-block masonry-item windows all col-lg-4 col-md-6 col-sm-12">
+						<div class="inner-box">
+							<div class="image">
+								<img src="{{gallery.image.url}}" alt="" />
+								<div class="overlay-box">
+									<div class="options">
+										<a href="projects-detail.html" class="plus-icon"><span class="icon flaticon-unlink"></span></a>
+										<a href="{{gallery.image.url}}" class="plus-icon lightbox-image" data-fancybox-group="gallery-one"><span class="icon flaticon-increase-size-option"></span></a>
+									</div>
+									<div class="content clearfix">
+										<h3><a href="projects-detail.html">{{gallery.tag}}</a></h3>
+										<div class="category"></div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					{% endfor %}
+
+
+					
+				</div>
+				<div class="pagination">
+					<span class="step-links">
+						{% if page_obj.has_previous %}
+							<a href="?page=1">&laquo; first</a>
+							<a href="?page={{ page_obj.previous_page_number }}">previous</a>
+						{% endif %}
+				
+						<span class="current">
+							Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+						</span>
+				
+						{% if page_obj.has_next %}
+							<a href="?page={{ page_obj.next_page_number }}">next</a>
+							<a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+						{% endif %}
+					</span>
+				</div>
+
+			
+			</div>
+		</div>
+	</section>
+	
+	<!-- Main Footer -->
+	{% include 'website/partials/footer.html' %}
+	
+</div>
+<!--End pagewrapper-->
+
+<!-- Color Palate / Color Switcher -->
+
+{% endblock content %}

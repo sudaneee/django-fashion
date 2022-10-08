@@ -34,4 +34,6 @@ urlpatterns = [
     path('edit-wage/<pk>/', views.editWages, name='edit-wage'),
     path('general-expenditure/', views.generalExpenditure, name='general-expenditure'),
     path('general-expenditure/<str:month>/<str:year>/', views.generalExpenditure, name='general-expenditure'),
+    path('general-income/', views.generalIncome, name='general-income'),
+    path('general-income/<str:month>/<str:year>/', views.generalIncome, name='general-income'),
 ]

@@ -1,3 +1,4 @@
+from unicodedata import name
 from django.db import models
 import datetime
 from djmoney.models.fields import MoneyField
@@ -13,9 +14,14 @@ class Customer(models.Model):
     phone_number = models.CharField(max_length=200)
     contact_address = models.CharField(max_length=200, null=True)
     email = models.CharField(max_length=200, null=True)
+    date_created = models.DateTimeField(auto_now_add=True, null=True)
 
     def __str__(self):
         return self.name
+
+    class Meta:
+        ordering = ['-date_created', 'name']
+
 
 class KaftanMeasurement(models.Model):
     customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
@@ -33,6 +39,9 @@ class KaftanMeasurement(models.Model):
         return str(self.customer)
 
 
+    class Meta:
+        ordering = ['customer']
+
 class TrouserMeasurement(models.Model):
     customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
     tag = models.CharField(max_length=200, unique=True, null=True)
@@ -46,6 +55,10 @@ class TrouserMeasurement(models.Model):
 
     def __str__(self):
         return str(self.customer)
+
+
+    class Meta:
+        ordering = ['customer']
 
 
 class SuitMeasurement(models.Model):
@@ -77,6 +90,10 @@ class ShirtMeasurement(models.Model):
         return str(self.customer)
 
 
+    class Meta:
+        ordering = ['customer']
+
+
 class DesignType(models.Model):
     type_name = models.CharField(max_length=200, null=True)
     amount = MoneyField(
@@ -88,6 +105,10 @@ class DesignType(models.Model):
 
     def __str__(self):
         return self.type_name
+
+
+    class Meta:
+        ordering = ['type_name']
         
 class Job(models.Model):
     customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
@@ -129,6 +150,10 @@ class Job(models.Model):
         return str(self.customer)
 
 
+    class Meta:
+        ordering = ['-recieved', '-collection_date']
+
+
 class JobItem(models.Model):
     job = models.ForeignKey(Job, on_delete=models.CASCADE, null=True)
     design_type = models.ForeignKey(DesignType, on_delete=models.CASCADE)
@@ -150,6 +175,9 @@ class JobItem(models.Model):
         self.material.close()
 
 
+    class Meta:
+        ordering = ['job']
+
 
 
 
@@ -162,6 +190,10 @@ class Staff(models.Model):
 
     def __str__(self):
         return self.name
+
+
+    class Meta:
+        ordering = ['name']
 
 
     
@@ -187,6 +219,10 @@ class StaffWage(models.Model):
     def __str__(self):
         return str(self.staff)
 
+
+    class Meta:
+        ordering = ['-paid_on']
+
 class WorkType(models.Model):
     name = models.CharField(max_length=200, null=True)
     amount = MoneyField(
@@ -199,6 +235,9 @@ class WorkType(models.Model):
     def __str__(self):
         return self.name
 
+    class Meta:
+        ordering = ['name']
+
 
 class StaffActivity(models.Model):
     staff = models.ForeignKey(Staff, on_delete=models.CASCADE)
@@ -209,6 +248,11 @@ class StaffActivity(models.Model):
 
     def __str__(self):
         return str(self.staff)
+
+
+
+    class Meta:
+        ordering = ['-done_on']
 
 
 class Consumables(models.Model):
@@ -223,6 +267,10 @@ class Consumables(models.Model):
     def __str__(self):
         return self.item
 
+
+    class Meta:
+        ordering = ['item']
+
 class ItemExpenditure(models.Model):
     item = models.ForeignKey(Consumables, on_delete=models.CASCADE)
     amount = MoneyField(
@@ -236,3 +284,7 @@ class ItemExpenditure(models.Model):
 
     def __str__(self):
         return str(self.item)
+
+
+    class Meta:
+        ordering = ['-incurred_on']

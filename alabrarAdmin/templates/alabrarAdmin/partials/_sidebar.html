@@ -70,7 +70,7 @@
     <li class="nav-item">
       <a class="nav-link" data-bs-toggle="collapse" href="#auth2" aria-expanded="false" aria-controls="auth">
         <i class="menu-icon mdi mdi-square-inc-cash"></i>
-        <span class="menu-title">Expenditure</span>
+        <span class="menu-title">Income & Expenditure</span>
         <i class="menu-arrow"></i>
       </a>
       <div class="collapse" id="auth2">
@@ -78,6 +78,7 @@
           <li class="nav-item"> <a class="nav-link" href="{% url 'create-expenditure' %}"> Add Expenses </a></li>
           <li class="nav-item"> <a class="nav-link" href="{% url 'expenses-list' %}"> Consumable Expenses </a></li>
           <li class="nav-item"> <a class="nav-link" href="{% url 'general-expenditure' %}"> General Expenditure </a></li>
+          <li class="nav-item"> <a class="nav-link" href="{% url 'general-income' %}"> General Income </a></li>
         </ul>
       </div>
     </li>
