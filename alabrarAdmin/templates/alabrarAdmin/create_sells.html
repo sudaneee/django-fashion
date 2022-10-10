@@ -1,0 +1,54 @@
+{% extends 'alabrarAdmin/base.html' %}
+{% load static %}
+{% block content%}
+
+    {% include 'alabrarAdmin/partials/_navbar.html' %}
+    <div class="container-fluid page-body-wrapper">
+        {% include 'alabrarAdmin/partials/_sidebar.html' %}
+        <div class="main-panel">        
+            <div class="content-wrapper">
+                <div class="row">
+                    <div class="col-md-12 grid-margin stretch-card">
+                        <div class="card">
+                          <div class="card-body">
+                            <h4 class="card-title">Create a Sell</h4>
+                            <p class="card-description">
+                              
+                            </p>
+                            <form method="POST">
+                                {% csrf_token %}
+                                <div class="form-group row">
+                                <div class="col-md-12">
+                                    <label>Item</label>
+                                    <div id="the-basics">
+                                        <select class="form-control" id="exampleSelectGender" name="item">
+                                        {% for item in sells_item %}
+                                            <option value="{{item.id}}">{{item.description}}</option>
+                                        {% endfor %}
+                                        </select>
+                                    </div>
+                                </div> 
+                                    
+                                <div class="col-md-12">
+                                    <label>Amount Sold</label>
+                                    <div id="the-basics">
+                                    <input class="typeahead" name="amount_sold" type="text" placeholder="Enter Amount Sold">
+                                    </div>
+                                </div>
+
+
+                                </div>
+                                <button name="create_sells" type="submit" class="btn btn-primary mb-2">Submit</button>
+        
+                            </form>
+                          </div>
+                        </div>
+                      </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% include 'alabrarAdmin/partials/_footer.html' %}
+
+{% endblock content%}

@@ -27,6 +27,9 @@ from .models import (
     ItemExpenditure,
     WorkType,
     StaffActivity,
+    SellsItem,
+    SellItemRestock,
+    Sell,
 )
 from django.contrib import messages
 # Create your views here.
@@ -786,7 +789,8 @@ def confirmPayment(request, pk, start_date, end_date):
     new_end_date = date(int(end_date[0:4]), int(end_date[5:7]), int(end_date[8:10])) + timedelta(days=1)
     query = StaffActivity.objects.filter(
         done_on__range=[start_date, new_end_date],
-        staff=Staff.objects.get(staff_number=pk)
+        staff=Staff.objects.get(staff_number=pk),
+        wages_group=None
         ).all()
 
     grand_total = []
@@ -961,3 +965,27 @@ def generalIncome(request, month=None, year=None):
     }
     return render(request, 'alabrarAdmin/general_income.html', context)
 
+
+@login_required(login_url='login')
+def createSells(request):
+    sells_item = SellsItem.objects.all()
+    
+    if request.method == 'POST' and 'create_sells' in request.POST:
+        item = request.POST['item']
+        amount_sold = request.POST['amount_sold']
+
+        Sell.objects.create(
+            item = SellsItem.objects.get(id=item),
+            amount = Money(int(amount_sold), 'NGN')
+        )
+
+        item_query = SellsItem.objects.get(id=item)
+        item_query.available = item_query.available - Money(int(amount_sold), 'NGN')
+        item_query.save()
+
+
+
+    context = {
+        'sells_item': sells_item,
+    }
+    return render(request, 'alabrarAdmin/create_sells.html', context)

@@ -288,3 +288,50 @@ class ItemExpenditure(models.Model):
 
     class Meta:
         ordering = ['-incurred_on']
+
+
+class SellsItem(models.Model):
+    description = models.CharField(max_length=200, null=True)
+    available = MoneyField(
+        decimal_places=2,
+        default=0,
+        default_currency='NGN',
+        max_digits=11,
+    )
+
+
+    def __str__(self):
+        return self.description
+
+class SellItemRestock(models.Model):
+    sells_item = models.ForeignKey(SellsItem, on_delete=models.CASCADE, null=True)
+    amount_stocked = MoneyField(
+        decimal_places=2,
+        default=0,
+        default_currency='NGN',
+        max_digits=11,
+    )
+    stocked_on = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return str(self.sells_item)
+
+    class Meta:
+        ordering = ['-stocked_on']
+
+
+class Sell(models.Model):
+    item = models.ForeignKey(SellsItem, on_delete=models.CASCADE, null=True)
+    amount = MoneyField(
+        decimal_places=2,
+        default=0,
+        default_currency='NGN',
+        max_digits=11,
+    )
+    sold_on = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return str(self.item)
+
+    class Meta:
+        ordering = ['-sold_on']
