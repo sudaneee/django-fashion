@@ -1,3 +1,4 @@
+from email.policy import default
 from unicodedata import name
 from django.db import models
 import datetime
@@ -145,6 +146,7 @@ class Job(models.Model):
 
     recieved = models.DateTimeField(auto_now_add=True)
     collection_date = models.DateTimeField()
+    sms_text = models.BooleanField(default=True, null=False)
 
     def __str__(self):
         return str(self.customer)

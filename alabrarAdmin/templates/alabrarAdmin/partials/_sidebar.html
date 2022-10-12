@@ -79,7 +79,21 @@
           <li class="nav-item"> <a class="nav-link" href="{% url 'expenses-list' %}"> Consumable Expenses </a></li>
           <li class="nav-item"> <a class="nav-link" href="{% url 'general-expenditure' %}"> General Expenditure </a></li>
           <li class="nav-item"> <a class="nav-link" href="{% url 'general-income' %}"> General Income </a></li>
+        </ul>
+      </div>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" data-bs-toggle="collapse" href="#auth3" aria-expanded="false" aria-controls="auth">
+        <i class="menu-icon mdi mdi-square-inc-cash"></i>
+        <span class="menu-title">Sells</span>
+        <i class="menu-arrow"></i>
+      </a>
+      <div class="collapse" id="auth3">
+        <ul class="nav flex-column sub-menu">
           <li class="nav-item"> <a class="nav-link" href="{% url 'create-sells' %}"> Create Sells </a></li>
+          <li class="nav-item"> <a class="nav-link" href="{% url 'sells-record' %}"> Sells Record </a></li>
+          <li class="nav-item"> <a class="nav-link" href="{% url 'add-sells-item' %}"> Add Sells Item </a></li>
+          <li class="nav-item"> <a class="nav-link" href="{% url 'sells-item-list' %}"> Sells Item List </a></li>
         </ul>
       </div>
     </li>

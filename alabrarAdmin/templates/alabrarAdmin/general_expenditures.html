@@ -54,7 +54,7 @@
                                   <tr>
                                     <td>{{forloop.counter}}</td>
                                     <td>{{expense.amount}}</td>
-                                    <td>{{expense.incurred_on}}</td>
+                                    <td>{{expense.incurred_on|date:'M-j-Y'}}</td>
                                   </tr>
                                 {% endfor %}
                                 <tr>
@@ -88,7 +88,7 @@
                                   <tr>
                                     <td>{{forloop.counter}}</td>
                                     <td>{{staff.amount_paid}}</td>
-                                    <td>{{staff.paid_on}}</td>
+                                    <td>{{staff.paid_on|date:'M-j-Y'}}</td>
                                   </tr>
                                 {% endfor %}
                                 <tr>

@@ -10,7 +10,9 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from sms import send_sms
-
+from django.core.paginator import Paginator
+import requests
+from django.conf import settings
 
 from .models import (
     Customer,
@@ -33,6 +35,8 @@ from .models import (
 )
 from django.contrib import messages
 # Create your views here.
+
+
 def loginPage(request):
     page = 'login'
 
@@ -68,6 +72,32 @@ def logoutUser(request):
 def dashboard(request):
 
     enddate = datetime.today()
+    sending_date = datetime.now().date()
+
+
+    sms_query = Job.objects.filter(collection_date=sending_date, sms_text=False).all()
+
+    for i in sms_query:
+        customer = Customer.objects.get(id=i.customer.id)
+        url = "https://api.ng.termii.com/api/sms/send"
+        payload = {
+            "to": f"{(customer.phone_number)[1:]}",
+            "from": "Al-abrar",
+            "sms": "Assalamu alaikum \nThis is to inform that your comfy and elegant dress are set for picked up @al-abrar fashion design limited. \nThanks for your partronage. \nWe are your best plug!",
+            "type": "plain",
+            "channel": "generic",
+            "api_key": settings.TERMII_API_KEY,
+
+        }
+
+        response = requests.post(url=url, data=payload)
+        i.sms_text = True
+        i.save()
+        print(response.text)
+    
+
+
+
     startdate = enddate - timedelta(days=6)
 
     item_expenses = ItemExpenditure.objects.filter(incurred_on__range=[startdate, enddate]).all()
@@ -96,6 +126,7 @@ def dashboard(request):
     for m in expected_income:
         awaiting_payments.append(m.balance)
 
+   
     
     context = {
         'expenditure': sum(all_expenses),
@@ -125,11 +156,20 @@ def addCustormer(request):
                 contact_address = contact_address,
                 email  = email,
             )
-            send_sms(
-            'Here is the message',
-            'Alabrar-Fashion',
-            [phone_number],
-            )
+            url = "https://api.ng.termii.com/api/sms/send"
+            payload = {
+                "to": f"{phone_number[1:]}",
+                "from": "Al-abrar",
+                "sms": f"Dear {name} ! \nWelcome to Al-Abrar Fashion Design, \nLocated at Faisalco Conference Hall, Kauran Juli Kano-Kaduna Express Way, Zaria. \nThanks. ",
+                "type": "plain",
+                "channel": "generic",
+                "api_key": settings.TERMII_API_KEY,
+
+            }
+
+            response = requests.post(url=url, data=payload)
+            print(response.text)
+
             messages.info(request, 'Customer Created Successfully')
             
         except:
@@ -520,7 +560,7 @@ def createJob(request):
 
 
         c_month, c_day, c_year = collection_date.split('/')
-        c_d = datetime.date(int(c_year), int(c_month), int(c_day))
+        c_d = date(int(c_year), int(c_month), int(c_day))
 
         job_created = Job.objects.create(
             customer = Customer.objects.get(customer_id=customer_id),
@@ -989,3 +1029,82 @@ def createSells(request):
         'sells_item': sells_item,
     }
     return render(request, 'alabrarAdmin/create_sells.html', context)
+
+
+@login_required(login_url='login')
+def sellsRecord(request, month=None, year=None):
+    if request.method == 'POST' and 'filter' in request.POST:
+        filter_date = request.POST['filter_date']
+        c_month, c_day, c_year = filter_date.split('/')
+        return redirect('sells-record', c_month, c_year)
+        
+        # c_d = datetime.date(int(c_year), int(c_month), int(c_day))
+
+    if month and year:
+
+
+        sells = Sell.objects.filter(sold_on__year=year, sold_on__month=month).all()
+       
+    else:
+        sells = Sell.objects.all()
+
+    paginator = Paginator(sells, 10)
+
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
+    total = sum(i.amount for i in page_obj)
+    context = {
+        'sells': page_obj,
+        'total': total,
+    }
+
+    return render(request, 'alabrarAdmin/sells_record.html', context)
+
+@login_required(login_url='login')
+def addSellsItem(request):
+    if request.method == 'POST' and 'add_item' in request.POST:
+        item = request.POST['item']
+        amount = request.POST['amount']
+
+        query = SellsItem.objects.create(
+            description = item,
+            available = Money(int(amount), 'NGN')
+        )
+
+        SellItemRestock.objects.create(
+            sells_item = SellsItem.objects.get(id=query.id),
+            amount_stocked = amount
+        )
+        return redirect('sells-item-list')
+    return render(request, 'alabrarAdmin/add_sells_item.html')
+
+@login_required(login_url='login')
+def sellsItemList(request):
+    sells_item = SellsItem.objects.all()
+    context = {
+        'sells_item': sells_item,
+    }
+    return render(request, 'alabrarAdmin/sells_item_list.html', context)
+
+@login_required(login_url='login')
+def updateSellsItem(request, pk):
+    item = SellsItem.objects.get(id=pk)
+
+    if request.method == 'POST' and 'update_item' in request.POST:
+        amount = request.POST['amount']
+        item.available = item.available + Money(int(amount), 'NGN')
+        item.save()
+        
+        SellItemRestock.objects.create(
+            sells_item = SellsItem.objects.get(id=pk),
+            amount_stocked = Money(int(amount), 'NGN')
+        )
+        
+        return redirect('sells-item-list')
+
+
+    context = {
+        'item': item
+    }
+    return render(request, 'alabrarAdmin/update_sells_item.html', context)

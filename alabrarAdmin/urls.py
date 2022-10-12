@@ -37,4 +37,9 @@ urlpatterns = [
     path('general-income/', views.generalIncome, name='general-income'),
     path('general-income/<str:month>/<str:year>/', views.generalIncome, name='general-income'),
     path('create-sells/', views.createSells, name='create-sells'),
+    path('sells-record/', views.sellsRecord, name='sells-record'),
+    path('sells-record/<str:month>/<str:year>/', views.sellsRecord, name='sells-record'),
+    path('add-sells-item/', views.addSellsItem, name='add-sells-item'),
+    path('sells-item-list/', views.sellsItemList, name='sells-item-list'),
+    path('update-sells-item/<pk>/', views.updateSellsItem, name='update-sells-item'),
 ]
