@@ -1,4 +1,5 @@
 from multiprocessing import context
+from sys import exec_prefix
 from django.shortcuts import redirect, render
 from django.http import HttpResponse
 from PIL import Image
@@ -77,24 +78,27 @@ def dashboard(request):
 
     sms_query = Job.objects.filter(collection_date=sending_date, sms_text=False).all()
 
-    for i in sms_query:
-        customer = Customer.objects.get(id=i.customer.id)
-        url = "https://api.ng.termii.com/api/sms/send"
-        payload = {
-            "to": f"{(customer.phone_number)[1:]}",
-            "from": "Al-abrar",
-            "sms": "Assalamu alaikum \nThis is to inform that your comfy and elegant dress are set for picked up @al-abrar fashion design limited. \nThanks for your partronage. \nWe are your best plug!",
-            "type": "plain",
-            "channel": "generic",
-            "api_key": "TLNWhmgMzn58KliQo5X83RwvYsoJ81AbhxuxToMMmFdBwSRRLIUTQnDxUL9jPC"
+    try:
+        for i in sms_query:
+            customer = Customer.objects.get(id=i.customer.id)
+            url = "https://api.ng.termii.com/api/sms/send"
+            payload = {
+                "to": f"{(customer.phone_number)[1:]}",
+                "from": "Al-abrar",
+                "sms": "Assalamu alaikum \nThis is to inform that your comfy and elegant dress are set for picked up @al-abrar fashion design limited. \nThanks for your partronage. \nWe are your best plug!",
+                "type": "plain",
+                "channel": "generic",
+                "api_key": "TLNWhmgMzn58KliQo5X83RwvYsoJ81AbhxuxToMMmFdBwSRRLIUTQnDxUL9jPC"
 
-        }
+            }
 
-        response = requests.post(url=url, data=payload)
-        i.sms_text = True
-        i.save()
-        print(response.text)
-    
+            response = requests.post(url=url, data=payload)
+            i.sms_text = True
+            i.save()
+            print(response.text)
+    except:
+        pass
+        
 
 
 
