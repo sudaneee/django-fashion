@@ -86,7 +86,7 @@ def dashboard(request):
             "sms": "Assalamu alaikum \nThis is to inform that your comfy and elegant dress are set for picked up @al-abrar fashion design limited. \nThanks for your partronage. \nWe are your best plug!",
             "type": "plain",
             "channel": "generic",
-            "api_key": settings.TERMII_API_KEY,
+            "api_key": "TLNWhmgMzn58KliQo5X83RwvYsoJ81AbhxuxToMMmFdBwSRRLIUTQnDxUL9jPC"
 
         }
 
@@ -163,7 +163,7 @@ def addCustormer(request):
                 "sms": f"Dear {name} ! \nWelcome to Al-Abrar Fashion Design, \nLocated at Faisalco Conference Hall, Kauran Juli Kano-Kaduna Express Way, Zaria. \nThanks. ",
                 "type": "plain",
                 "channel": "generic",
-                "api_key": settings.TERMII_API_KEY,
+                "api_key": "TLNWhmgMzn58KliQo5X83RwvYsoJ81AbhxuxToMMmFdBwSRRLIUTQnDxUL9jPC"
 
             }
 
