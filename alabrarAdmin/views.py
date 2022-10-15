@@ -629,7 +629,7 @@ def viewJobDetails(request, pk):
         payload = {
             "to": f"{(customer.phone_number)[1:]}",
             "from": "Al-abrar",
-            "sms": f"Dear {customer.name} ! This is to notify you that your appointment with our gallery(Al-abrar fashion design limited) has been postponed to {reschedule_date} we sincerely apologise for the inconveniences Thank you.",
+            "sms": f"Dear {customer.name} ! This is to notify you that your appointment with our gallery(Al-abrar fashion design limited) has been postponed to {c_day}/{c_month}/{c_year} we sincerely apologise for the inconveniences Thank you.",
             "type": "plain",
             "channel": "generic",
             "api_key": "TLNWhmgMzn58KliQo5X83RwvYsoJ81AbhxuxToMMmFdBwSRRLIUTQnDxUL9jPC"
@@ -783,14 +783,14 @@ def itemDetails(request, pk):
             actual_currency = amount[3:-3]
             final_price = int(actual_currency.replace(',', ''))
             item.item = item_name
-            item.amount = Money(final_price, price_currency)
+            item.amount = item.amount + Money(final_price, price_currency)
             item.save()
 
 
         
         else:
             item.item = item_name
-            item.amount = Money(int(amount), 'NGN')
+            item.amount = item.amount + Money(int(amount), 'NGN')
             item.save()
 
 
