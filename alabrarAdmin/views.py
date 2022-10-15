@@ -516,19 +516,22 @@ def createJob(request):
 
         total_amount = sum(amount_list)
 
+        jobItem_ids = []
 
         for item, material in zip(design_id, materials):
-            JobItem.objects.create(
+            created = JobItem.objects.create(
                 design_type = DesignType.objects.get(id=item),
                 material = material
-
-
             )
+            jobItem_ids.append(created.id)
+        
+
 
         contxt = {
             'customer_id': customer_id,
             'total_amount': total_amount,
-            'design_id': design_id,
+            'jobItems': jobItem_ids,
+            
         }
 
 
@@ -543,15 +546,18 @@ def createJob(request):
         amount_paid = request.POST['amount_paid']
         discount = request.POST['discount']
         collection_date = request.POST['collection_date']
-        design_ids = request.POST.getlist('design_ids')
+        jobItems = request.POST.getlist('job_items')
+
+      
+
 
         
         convert_discount = Money(int(discount), 'NGN')
         convert_amount_paid = Money(int(amount_paid), 'NGN')
 
         total_amount_charges = []    
-        for i in design_ids:
-            total_amount_charges.append(DesignType.objects.get(id=i).amount)
+        for i in jobItems:
+            total_amount_charges.append(JobItem.objects.get(id=i).design_type.amount)
 
         amount_charged = sum(total_amount_charges)
 
@@ -576,13 +582,12 @@ def createJob(request):
             collection_date = c_d,
         )
 
-        for j in design_ids:
-            job_item = JobItem.objects.filter(design_type=j)
-            for i in job_item:
-                i.job = Job.objects.get(id=job_created.id)
-                i.save()
-        
+        for j in jobItems:
+            job_item = JobItem.objects.get(id=j)
+            job_item.job = Job.objects.get(id=job_created.id)
+            job_item.save()
 
+        
 
         messages.info(request, 'Job Created successfully')
  

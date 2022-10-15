@@ -45,11 +45,12 @@
                                 <div class="col-md-6" style="display: none;">
                                     <label>Discount</label>
                                     <div id="the-basics">
-                                        {% for i in design_id%}
-                                            <input class="typeahead" name="design_ids" type="text" value="{{i}}">
+                                        {% for i in jobItems%}
+                                            <input class="typeahead" name="job_items" type="text" value="{{i}}">
                                         {% endfor %}
                                     </div>
                                 </div>
+              
                                 <div class="col-md-6">
                                     <label>Collection Date</label>
                                     <div id="the-basics">
