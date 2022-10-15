@@ -146,7 +146,7 @@ class Job(models.Model):
 
     recieved = models.DateTimeField(auto_now_add=True)
     collection_date = models.DateTimeField()
-    sms_text = models.BooleanField(default=False, null=True)
+    sms_text = models.BooleanField(default=False)
 
     def __str__(self):
         return str(self.customer)

@@ -85,7 +85,7 @@ def dashboard(request):
             payload = {
                 "to": f"{(customer.phone_number)[1:]}",
                 "from": "Al-abrar",
-                "sms": "Assalamu alaikum \nThis is to inform that your comfy and elegant dress are set for picked up @al-abrar fashion design limited. \nThanks for your partronage. \nWe are your best plug!",
+                "sms": f"Dear {customer.name} ! \nThis is to inform that your comfy and elegant dress are set for picked up @al-abrar fashion design limited. \nThanks for your partronage. \nWe are your best plug!",
                 "type": "plain",
                 "channel": "generic",
                 "api_key": "TLNWhmgMzn58KliQo5X83RwvYsoJ81AbhxuxToMMmFdBwSRRLIUTQnDxUL9jPC"
@@ -614,6 +614,34 @@ def viewJobDetails(request, pk):
 
     job = Job.objects.get(id=pk)
     job_items = JobItem.objects.filter(job=job).all()
+
+    if request.method == 'POST' and 'reschedule_date' in request.POST:
+        reschedule_date = request.POST['collection_date']
+        c_month, c_day, c_year = reschedule_date.split('/')
+        c_d = date(int(c_year), int(c_month), int(c_day))
+
+        job.collection_date = c_d
+        job.save()
+
+
+        customer = Customer.objects.get(id=job.customer.id)
+        url = "https://api.ng.termii.com/api/sms/send"
+        payload = {
+            "to": f"{(customer.phone_number)[1:]}",
+            "from": "Al-abrar",
+            "sms": f"Dear {customer.name} ! This is to notify you that your appointment with our gallery(Al-abrar fashion design limited) has been postponed to {reschedule_date} we sincerely apologise for the inconveniences Thank you.",
+            "type": "plain",
+            "channel": "generic",
+            "api_key": "TLNWhmgMzn58KliQo5X83RwvYsoJ81AbhxuxToMMmFdBwSRRLIUTQnDxUL9jPC"
+
+        }
+
+        response = requests.post(url=url, data=payload)
+        print(response)
+
+
+
+        return redirect('view-jobs')
 
     context = {
         'job': job,
