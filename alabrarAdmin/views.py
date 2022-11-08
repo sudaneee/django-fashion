@@ -647,6 +647,12 @@ def viewJobDetails(request, pk):
 
 
         return redirect('view-jobs')
+    
+    if request.method == 'POST' and 'deposit' in request.POST:
+        amount_deposited = request.POST['amount_deposited']
+        job.amount_paid = job.amount_paid + Money(int(amount_deposited), 'NGN')
+        job.balance = job.balance - Money(int(amount_deposited), 'NGN')
+        job.save()
 
     context = {
         'job': job,
@@ -1145,3 +1151,53 @@ def updateSellsItem(request, pk):
         'item': item
     }
     return render(request, 'alabrarAdmin/update_sells_item.html', context)
+
+
+@login_required(login_url='login')
+def workTypeItem(request):
+    if request.method == 'POST' and 'add_work_type':
+        name = request.POST['name']
+        amount = request.POST['amount']
+
+        WorkType.objects.create(
+            name = name,
+            amount = Money(int(amount), 'NGN')
+        )
+
+        return redirect('create-work-type')
+    return render(request, 'alabrarAdmin/add_worktype.html')
+
+
+@login_required(login_url='login')
+def workTypeList(request):
+    works = WorkType.objects.all()
+    context = {
+        'items': works,
+    }
+    return render(request, 'alabrarAdmin/work_type_list.html', context)
+
+
+
+@login_required(login_url='login')
+def workTypeDetail(request, pk):
+    item = WorkType.objects.get(id=pk)
+
+    if request.method == 'POST' and 'update_work_type' in request.POST:
+        name = request.POST['name']
+        amount = request.POST['amount']
+        item.name = name
+        item.amount = Money(int(amount), 'NGN')
+        item.save()
+
+        return redirect('work-type-list')
+    context = {
+        'item': item,
+    }
+    return render(request, 'alabrarAdmin/work_type_detail.html', context)
+
+@login_required(login_url='login')
+def deleteWorkType(request, pk):
+    item = WorkType.objects.get(id=pk)
+    item.delete()
+
+    return redirect('work-type-list')

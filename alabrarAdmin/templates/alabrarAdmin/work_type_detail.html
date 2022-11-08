@@ -1,0 +1,57 @@
+{% extends 'alabrarAdmin/base.html' %}
+{% load static %}
+{% block content%}
+
+    {% include 'alabrarAdmin/partials/_navbar.html' %}
+    <div class="container-fluid page-body-wrapper">
+        {% include 'alabrarAdmin/partials/_sidebar.html' %}
+        <div class="main-panel">        
+            <div class="content-wrapper">
+                <div class="row">
+                    <div class="col-md-12 grid-margin stretch-card">
+                        <div class="card">
+                          <div class="card-body">
+                            <h4 class="card-title">Update Work Type </h4>
+                            <p class="card-description">
+                            
+                            </p>
+                            <form method="POST">
+                                {% csrf_token %}
+                                <div class="form-group row">
+                                <div class="col-md-6">
+                                    <label>Name</label>
+                                    <div id="the-basics">
+                                    <input class="typeahead" name="name" type="text" value="{{item.name}}">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label>Amount</label>
+                                    <div id="the-basics">
+                                    <input class="typeahead" name="amount" type="text" value="{{item.amount}}">
+                                    </div>
+                                </div>
+                                
+    
+                                </div>
+                                <button name="update_work_type" type="submit" class="btn btn-primary mb-2">Update</button>
+                                <a href="{%url 'delete-work-type' item.id %}" class="btn btn-danger mb-2" >Delete</a>
+                                {% if messages %}
+                                {% for msg in messages %}
+                                  <div class="alert alert-info alert-dismissable">
+                                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                                    {{msg.message}}
+                                  </div>
+                                {% endfor %}
+                              {% endif %}
+                            </form>
+                          </div>
+                        </div>
+                      </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% include 'alabrarAdmin/partials/_footer.html' %}
+
+{% endblock content%}

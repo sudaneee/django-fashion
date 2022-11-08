@@ -42,4 +42,8 @@ urlpatterns = [
     path('add-sells-item/', views.addSellsItem, name='add-sells-item'),
     path('sells-item-list/', views.sellsItemList, name='sells-item-list'),
     path('update-sells-item/<pk>/', views.updateSellsItem, name='update-sells-item'),
+    path('create-work-type/', views.workTypeItem, name='create-work-type'),
+    path('work-type-list', views.workTypeList, name='work-type-list'),
+    path('work-type-detail/<pk>/', views.workTypeDetail, name='work-type-detail'),
+    path('delete-work-type/<pk>/', views.deleteWorkType, name='delete-work-type'),
 ]
