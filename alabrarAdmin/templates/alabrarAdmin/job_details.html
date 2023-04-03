@@ -30,6 +30,18 @@
                                     <th>Collected on</th>
                                     <td>{{job.collection_date|date:"Y-m-d"}}</td>
                                   </tr>
+                                  <tr>
+                                    <th>Total Amount Charged: </th>
+                                    <td>{{job.amount_charged}}</td>
+                                    <th>Discount:</th>
+                                    <td>{{job.discount}}</td>
+                                  </tr>
+                                  <tr>
+                                    <th>Amount Paid: </th>
+                                    <td>{{job.amount_paid}}</td>
+                                    <th>Balance:</th>
+                                    <td>{{job.balance}}</td>
+                                  </tr>
                                 </thead>
                               </table>
                             </div>
