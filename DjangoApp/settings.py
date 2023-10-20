@@ -28,7 +28,7 @@ SECRET_KEY = env('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'www.alabrar-fashion.com', 'alabrar-fashion.com', '194.195.221.54']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'www.alabrar-fashion.com', 'alabrar-fashion.com', '194.195.221.54', 'fashionhouse.applikuapp.com']
 
 
 # Application definition
